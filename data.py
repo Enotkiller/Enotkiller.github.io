@@ -37,7 +37,7 @@ class data:
             }
         }
         self.full_time = date_now().full_date_return()
-        self.data = str(datetime.now().strftime("%d"))
+        self.data = int(datetime.datetime.now().strftime("%d"))
     def para(self):
         return date_now().para_return(self.data, date_now().quest_return(date_now().time_return()), self.cal, self.full_time)
     def peremena(self):
