@@ -96,30 +96,25 @@ class date_now:
             }
         }
 
-        parameters = []
         quest = self.quest_return()
         data = self.date_return()
-
+        parameters = None
         if data <= 5:
-            if quest < 0:
-                parameters.append("Перемена")
-            else:
-                parameters.append("Урок")
             for i in range(1, 4 + 1):
                 if quest == i or quest == i * -1:
-                    if data != 3 and data != 4:
-                        parameters.append(cal.get(data).get(i))
+                    if (data != 3 and data != 4) and self.full_date_return() == 0:
+                        parameters = cal.get(data).get(i)
                     else:
                         if data == 3 and quest == 2 or quest == 2 * -1:
-                            parameters.append(cal.get(data).get(2.5))
+                            parameters = cal.get(data).get(2.5)
                         elif data == 4 and quest == 3 or quest == 3 * -1:
-                            parameters.append(cal.get(data).get(3.5))
+                            parameters = cal.get(data).get(3.5)
                         elif quest == i or quest == i * -1:
-                            parameters.append(cal.get(data).get(i))
+                            parameters = cal.get(data).get(i)
 
             return parameters
         else:
             return "Выходные"
 
 if __name__ == '__main__':
-    print(date_now().full_date_return())
+    print(date_now().para_return())
