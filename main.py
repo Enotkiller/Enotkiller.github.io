@@ -10,8 +10,7 @@ bot = Bot(token = '7080600577:AAHIKU7SrX8XmQrcnZlb5fLtVjOtAdHt-NU')
 dp = Dispatcher()
 datenow = date_now().date_return()
 timenow = date_now().time_return()
-para_list = date_now().para_return()
-para = str(para_list[1])
+para = date_now().para_return()
 @dp.message(Command("para"))
 async def cmd_start(message: Message):
     if datenow == 1:
