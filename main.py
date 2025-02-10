@@ -12,15 +12,15 @@ timenow = date_now().time_return()
 @dp.message(Command("para"))
 async def cmd_start(message: Message):
     if datenow == 1:
-        await message.answer(f"Понедельник\n текущее время: {timenow}")
+        await message.answer(f"Понедельник\nТекущее время: {timenow}")
     if datenow == 2:
-        await message.answer(f"Вторник\n текущее время: {timenow} ")
+        await message.answer(f"Вторник\nТекущее время: {timenow} ")
     if datenow == 3:
-        await message.answer(f"Среда\n текущее время: {timenow}")
+        await message.answer(f"Среда\nТекущее время: {timenow}")
     if datenow == 4:
-        await message.answer(f"Четвегр\n текущее время: {timenow}")
+        await message.answer(f"Четвегр\nТекущее время: {timenow}")
     if datenow == 5:
-        await message.answer(f"Пятница\n текущее время: {timenow}")
+        await message.answer(f"Пятница\nТекущее время: {timenow}")
 async def main():
     await dp.start_polling(bot)
 if __name__ == "__main__":
