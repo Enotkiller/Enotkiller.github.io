@@ -4,13 +4,14 @@ from aiogram.types import Message
 from aiogram.filters import Command
 import logging
 import asyncio
-from date_for_now import*
-#fdsasa
+from data import data
+db = data()
+db.start()
 bot = Bot(token = '7080600577:AAHIKU7SrX8XmQrcnZlb5fLtVjOtAdHt-NU')
 dp = Dispatcher()
-datenow = date_now().date_return()
-timenow = date_now().time_return()
-para = date_now().para_return()
+datenow = db.data
+timenow = db.time()
+para = db.para()
 @dp.message(Command("para"))
 async def cmd_start(message: Message):
     if datenow == 1:
