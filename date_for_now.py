@@ -68,9 +68,11 @@ class date_now:
                 4 : None
             }
         }
+
         parameters = []
         quest = self.quest_return()
         data = self.date_return()
+
         if data <= 5:
             if quest < 0:
                 parameters.append("Перемена")
