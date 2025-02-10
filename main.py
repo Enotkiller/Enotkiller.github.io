@@ -4,11 +4,23 @@ from aiogram.types import Message
 from aiogram.filters import Command
 import logging
 import asyncio
+from date_for_now import*
 bot = Bot(token = '7080600577:AAHIKU7SrX8XmQrcnZlb5fLtVjOtAdHt-NU')
 dp = Dispatcher()
-@dp.message(Command("start"))
+datenow = date_now().date_return()
+timenow = date_now().time_return()
+@dp.message(Command("para"))
 async def cmd_start(message: Message):
-    await message.answer('qq')
+    if datenow == 1:
+        await message.answer(f"Понедельник\nТекущее время: {timenow}")
+    if datenow == 2:
+        await message.answer(f"Вторник\nТекущее время: {timenow} ")
+    if datenow == 3:
+        await message.answer(f"Среда\nТекущее время: {timenow}")
+    if datenow == 4:
+        await message.answer(f"Четвегр\nТекущее время: {timenow}")
+    if datenow == 5:
+        await message.answer(f"Пятница\nТекущее время: {timenow}")
 async def main():
     await dp.start_polling(bot)
 if __name__ == "__main__":
