@@ -1,10 +1,34 @@
 import datetime
-
+import calendar
 
 class date_now:
     def date_return(self):
         res = datetime.datetime.now()
         return int(res.weekday() + 1)
+    def full_date_return(self):
+        cogda_mounth, cogda_day = 2, 10
+        #mounth = int(datetime.datetime.now().strftime("%m"))
+        #day = int(datetime.datetime.now().strftime("%d"))
+        mounth = 3
+        day = 12
+        now = 1
+        for i in range(mounth - cogda_mounth + 1):
+            for j in range(1, calendar.monthrange(2025, i + cogda_mounth)[1] + 1):
+                if i == 0 and j <= 9:
+                    pass
+                else:
+                    if self.date_for_weekly(cogda_mounth + i, j) == 1:
+                        if now == 0:
+                            now = 1
+                        else:
+                            now = 0
+                    if i + cogda_mounth == mounth and j >= day:
+                        break
+        return now
+
+    def date_for_weekly(self, mounth, day):
+        date = datetime.date(2025, mounth, day)
+        return date.isoweekday()
 
     def time_return(self):
         time = datetime.datetime.now().strftime("%H:%M")
@@ -33,6 +57,11 @@ class date_now:
                 return -4
             else:
                 return 4
+    def perema_now_retuen(self):
+        if self.quest_return() < 0:
+            return True
+        else:
+            return False
     def para_return(self):
         cal = {
             1 : {
@@ -86,4 +115,4 @@ class date_now:
             return "Выходные"
 
 if __name__ == '__main__':
-    print(date_now().para_return())
+    print(date_now().full_date_return())
