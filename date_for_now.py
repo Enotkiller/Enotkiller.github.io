@@ -73,7 +73,7 @@ class date_now:
         data = self.date_return()
         if data <= 5:
             if quest < 0:
-                parameters.append("перемена")
+                parameters.append("Перемена")
             else:
                 parameters.append("Урок")
             for i in range(1, 4 + 1):
