@@ -23,17 +23,14 @@ class date_now:
                     if i + cogda_mounth == mounth and j >= day:
                         break
         return now
-
     def date_for_weekly(self, mounth, day):
         date = datetime.date(2025, mounth, day)
         return date.isoweekday()
-
     def time_return(self):
         time = datetime.datetime.now().strftime("%H:%M")
         return time
-
-    def quest_return(self):
-        data = self.time_return().split(":")
+    def quest_return(self, _time):
+        data = _time.split(":")
         time = float(f"{data[0]}.{data[1]}")
         if time >= 8.0 and time <= 9.50:
             if time >= 8.0 and time <= 8.30:
@@ -55,54 +52,18 @@ class date_now:
                 return -4
             else:
                 return 4
-    def perema_now_retuen(self):
-        if self.quest_return() < 0:
+    def perema_now_retuen(self, quest):
+        if quest < 0:
             return True
         else:
             return False
-    def para_return(self):
-        cal = {
-            1 : {
-                1 : "Биология",
-                2 : "Биология",
-                3 : "Химия",
-                4 : "Оборона Украины"
-            },
-            2 : {
-                1 : "Оборона Украины",
-                2 : "Физра",
-                3 : "Английский",
-                4 : None
-            },
-            3 : {
-                1 : "Математика",
-                2 : "Всемирная история",
-                2.5 : "Химия",
-                3 : "Математика",
-                4 : "Зарубежная литература"
-            },
-            4 : {
-                1 : "История Украины",
-                2 : "География",
-                3 : "Английский",
-                3.5 : "Физика",
-                4 : "Физика"
-            },
-            5 : {
-                1 : "Информатика",
-                2 : "Украинский язык",
-                3 : "Украинская литература",
-                4 : None
-            }
-        }
+    def para_return(self, data, quest, cal, full_date):
 
-        quest = self.quest_return()
-        data = self.date_return()
         parameters = None
         if data <= 5:
             for i in range(1, 4 + 1):
                 if quest == i or quest == i * -1:
-                    if (data != 3 and data != 4) and self.full_date_return() == 0:
+                    if (data != 3 and data != 4) and full_date == 0:
                         parameters = cal.get(data).get(i)
                     else:
                         if data == 3 and quest == 2 or quest == 2 * -1:
