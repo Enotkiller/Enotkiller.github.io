@@ -35,4 +35,4 @@ class date_now:
                 return 4
 
 if __name__ == '__main__':
-    pass
+    print(date_now().quest_return())
