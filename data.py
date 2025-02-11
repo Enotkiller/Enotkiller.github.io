@@ -38,15 +38,20 @@ class data:
         }
         self.full_time = date_now().full_date_return()
         self.data = int(datetime.datetime.now().strftime("%d"))
-        self.otmena_mass = [0, 0, 0]
+        self.otmena_mass = [0, 0, 1]
     def reverse_otmena(self):
-        self.otmena_mass[2] = 1
-        if self.quest() > self.otmena_mass[1]:
+        self.otmena_mass[2] = 2
+        if (self.quest() if self.quest() > 0 else self.quest() * -1) > self.otmena_mass[1]:
             self.otmena_mass[0] = 0
+            self.otmena_mass[2] = 0
+        else:
+            self.otmena_mass[2] = 0
+
     def otmena_now(self):
+        self.quest()
         return self.otmena_mass[0]
     def otmena(self):
-        self.otmena_mass = [1, self.quest() if self.quest() > 0 else self.quest() * -1]
+        self.otmena_mass = [1, self.quest() if self.quest() > 0 else self.quest() * -1, 0]
     def data_weekly(self):
         return date_now().date_return()
     def data(self):
@@ -61,10 +66,16 @@ class data:
     def quest(self):
         if self.otmena_mass[2] == 0:
             self.reverse_otmena()
-        else:
-            self.otmena_mass[2] = 0
         return date_now().quest_return(date_now().time_return())
     def time_float(self):
         return float(f"{date_now().time_return().split(":")[0]}.{date_now().time_return().split(":")[1]}")
 if __name__ == '__main__':
-    print(data().data())
+    db = data()
+    db.start()
+    print(db.para())
+    print(db.otmena_mass)
+    db.otmena()
+    print(db.otmena_mass)
+    print(db.otmena_now())
+    print(db.otmena_mass)
+    print(db.otmena_mass)
