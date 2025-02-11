@@ -1,6 +1,7 @@
 #файл пидора
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
+from aiogram.enums import ParseMode
 from aiogram.filters import Command
 import logging
 import asyncio
@@ -26,6 +27,8 @@ async def cmd_start(message: Message):
 async def otmena_pari(message: Message):
     if message.from_user.id == idd.get(1) or idd.get(2):
         db.otmena()
+        text = "Параметр: <b>Отмена Пары</b> успешно поставлен!"
+        await message.answer(text, parse_mode=ParseMode.HTML)
 async def main():
     await dp.start_polling(bot)
 if __name__ == "__main__":
