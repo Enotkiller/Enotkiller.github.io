@@ -4,7 +4,7 @@ import calendar
 class date_now:
     def date_return(self):
         res = datetime.datetime.now()
-        return int(res.weekday() + 1)
+        return int(res.isoweekday())
     def full_date_return(self):
         cogda_mounth, cogda_day = 2, 10
         mounth = int(datetime.datetime.now().strftime("%m"))
@@ -38,7 +38,7 @@ class date_now:
             else:
                 return 1
         elif time >= 9.50 and time <= 11.20:
-            if time >= 9.50 and time <= 11.0:
+            if time >= 9.50 and time <= 10.0:
                 return -2
             else:
                 return 2
@@ -72,8 +72,10 @@ class date_now:
                             parameters = cal.get(data).get(3.5)
                         elif quest == i or quest == i * -1:
                             parameters = cal.get(data).get(i)
-
-            return parameters
+            if parameters != None:
+                return parameters
+            else:
+                return "Пары нет"
         else:
             return "Выходные"
 

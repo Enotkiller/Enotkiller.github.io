@@ -7,17 +7,24 @@ import asyncio
 from data import data
 db = data()
 db.start()
+id = {
+    1 : 1528266799,
+    2 : 1522348807
+}
 bot = Bot(token = '7080600577:AAHIKU7SrX8XmQrcnZlb5fLtVjOtAdHt-NU')
 dp = Dispatcher()
-datenow = db.data
+datenow = db.data_weekly()
 days = ["Понедельник", "Вторник", "Среда", "Четвегр", "Пятница"]
 @dp.message(Command("para"))
 async def cmd_start(message: Message):
     if datenow <= 5 and db.time_float() <= 14.50:
-        await message.answer(f"{days[datenow]}\nТекущее время: {db.time()}\nТекущая пара: {db.para()}\nСтатус: {db.peremena()}")
+        print(message.from_user.id)
+        await message.answer(f"{days[datenow - 1]}\nТекущее время: {db.time()}\nТекущая пара: {db.para()}\nСтатус: {"Перемена" if db.peremena() else "Урок"}")
     else:
         await message.answer("Какие уроки челл.")
-
+@dp.message(Command(""))
+async def cmd_start(message: Message):
+    pass
 async def main():
     await dp.start_polling(bot)
 if __name__ == "__main__":
