@@ -62,7 +62,7 @@ class data:
         if self.otmena_mass[2] == 0:
             self.reverse_otmena()
         else:
-            self.otmena_mass[2] = 1
+            self.otmena_mass[2] = 0
         return date_now().quest_return(date_now().time_return())
     def time_float(self):
         return float(f"{date_now().time_return().split(":")[0]}.{date_now().time_return().split(":")[1]}")
