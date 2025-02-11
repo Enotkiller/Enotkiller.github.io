@@ -27,7 +27,8 @@ class date_now:
         date = datetime.date(2025, mounth, day)
         return date.isoweekday()
     def time_return(self):
-        time = datetime.datetime.now().strftime(f"{int("%H") + 2}:%M")
+        time = datetime.datetime.now().strftime("%H:%M")
+        time = str(f"{int(time.split(":")[0]) + 2}:{time.split(":")[1]}")
         return time
     def quest_return(self, _time):
         data = _time.split(":")
