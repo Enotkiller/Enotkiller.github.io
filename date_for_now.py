@@ -38,7 +38,7 @@ class date_now:
             else:
                 return 1
         elif time >= 9.50 and time <= 11.20:
-            if time >= 9.50 and time <= 11.0:
+            if time >= 9.50 and time <= 10.0:
                 return -2
             else:
                 return 2
@@ -72,8 +72,10 @@ class date_now:
                             parameters = cal.get(data).get(3.5)
                         elif quest == i or quest == i * -1:
                             parameters = cal.get(data).get(i)
-
-            return parameters
+            if parameters != None:
+                return parameters
+            else:
+                return "Пары нет"
         else:
             return "Выходные"
 
