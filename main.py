@@ -7,7 +7,7 @@ import asyncio
 from data import data
 db = data()
 db.start()
-id = {
+idd = {
     1 : 1528266799,
     2 : 1522348807
 }
@@ -18,13 +18,14 @@ days = ["Понедельник", "Вторник", "Среда", "Четвег�
 @dp.message(Command("para"))
 async def cmd_start(message: Message):
     if datenow <= 5 and db.time_float() <= 14.50:
-        print(message.from_user.id)
+        #print(message.from_user.id)
         await message.answer(f"{days[datenow - 1]}\nТекущее время: {db.time()}\nТекущая пара: {db.para()}\nСтатус: {"Перемена" if db.peremena() else "Урок"}")
     else:
         await message.answer("Какие уроки челл.")
-@dp.message(Command(""))
-async def cmd_start(message: Message):
-    pass
+@dp.message(Command("otmena"))
+async def otmena_pari(message: Message):
+    if message.from_user.id == idd.get(1) or idd.get(2):
+        pass
 async def main():
     await dp.start_polling(bot)
 if __name__ == "__main__":
