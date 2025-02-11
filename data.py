@@ -38,6 +38,15 @@ class data:
         }
         self.full_time = date_now().full_date_return()
         self.data = int(datetime.datetime.now().strftime("%d"))
+        self.otmena_mass = [0, 0, 0]
+    def reverse_otmena(self):
+        self.otmena_mass[2] = 1
+        if self.quest() > self.otmena[1]:
+            self.otmena_mass[0] = 0
+    def otmena_now(self):
+        return self.otmena_mass[0]
+    def otmena(self):
+        self.otmena_mass = [1, self.quest() if self.quest() > 0 else self.quest() * -1]
     def data_weekly(self):
         return date_now().date_return()
     def data(self):
@@ -50,6 +59,10 @@ class data:
     def time(self):
         return date_now().time_return()
     def quest(self):
+        if self.otmena_mass[2] == 0:
+            self.reverse_otmena()
+        else:
+            self.otmena_mass[2] = 1
         return date_now().quest_return(date_now().time_return())
     def time_float(self):
         return float(f"{date_now().time_return().split(":")[0]}.{date_now().time_return().split(":")[1]}")
