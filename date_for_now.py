@@ -65,7 +65,7 @@ class date_now:
                 if quest == i or quest == i * -1:
                     if (data != 3 and data != 4) and full_date == 0:
                         parameters = cal.get(data).get(i)
-                    else:2
+                    else:
                         if data == 3 and (quest == 2 or quest == 2 * -1):
                             parameters = cal.get(data).get(2.5)
                         elif data == 3 and (quest == 3 or quest == 3 * -1):
