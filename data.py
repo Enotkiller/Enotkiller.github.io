@@ -41,7 +41,7 @@ class data:
         self.otmena_mass = [0, 0, 0]
     def reverse_otmena(self):
         self.otmena_mass[2] = 1
-        if self.quest() > self.otmena[1]:
+        if self.quest() > self.otmena_mass[1]:
             self.otmena_mass[0] = 0
     def otmena_now(self):
         return self.otmena_mass[0]
