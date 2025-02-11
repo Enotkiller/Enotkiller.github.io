@@ -9,7 +9,7 @@ class date_now:
         cogda_mounth, cogda_day = 2, 10
         mounth = int(datetime.datetime.now().strftime("%m"))
         day = int(datetime.datetime.now().strftime("%d"))
-        now = 1
+        now = 0
         for i in range(mounth - cogda_mounth + 1):
             for j in range(1, calendar.monthrange(2025, i + cogda_mounth)[1] + 1):
                 if i == 0 and j <= 9:
@@ -65,10 +65,12 @@ class date_now:
                 if quest == i or quest == i * -1:
                     if (data != 3 and data != 4) and full_date == 0:
                         parameters = cal.get(data).get(i)
-                    else:
-                        if data == 3 and quest == 2 or quest == 2 * -1:
+                    else:2
+                        if data == 3 and (quest == 2 or quest == 2 * -1):
                             parameters = cal.get(data).get(2.5)
-                        elif data == 4 and quest == 3 or quest == 3 * -1:
+                        elif data == 3 and (quest == 3 or quest == 3 * -1):
+                            parameters = cal.get(data).get(3.5)
+                        elif data == 4 and (quest == 3 or quest == 3 * -1):
                             parameters = cal.get(data).get(3.5)
                         elif quest == i or quest == i * -1:
                             parameters = cal.get(data).get(i)
