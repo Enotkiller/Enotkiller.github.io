@@ -9,12 +9,12 @@ db = data()
 db.start()
 bot = Bot(token = '7080600577:AAHIKU7SrX8XmQrcnZlb5fLtVjOtAdHt-NU')
 dp = Dispatcher()
-datenow = db.data
+datenow = db.data_weekly()
 days = ["Понедельник", "Вторник", "Среда", "Четвегр", "Пятница"]
 @dp.message(Command("para"))
 async def cmd_start(message: Message):
     if datenow <= 5 and db.time_float() <= 14.50:
-        await message.answer(f"{days[datenow]}\nТекущее время: {db.time()}\nТекущая пара: {db.para()}\nСтатус: {db.peremena()}")
+        await message.answer(f"{days[datenow]}\nТекущее время: {db.time()}\nТекущая пара: {db.para()}\nСтатус: {"Перемена" if db.peremena() else "Урок"}")
     else:
         await message.answer("Какие уроки челл.")
 

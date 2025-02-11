@@ -4,7 +4,7 @@ import calendar
 class date_now:
     def date_return(self):
         res = datetime.datetime.now()
-        return int(res.weekday() + 1)
+        return int(res.weekday())
     def full_date_return(self):
         cogda_mounth, cogda_day = 2, 10
         mounth = int(datetime.datetime.now().strftime("%m"))

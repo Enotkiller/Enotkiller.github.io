@@ -38,13 +38,20 @@ class data:
         }
         self.full_time = date_now().full_date_return()
         self.data = int(datetime.datetime.now().strftime("%d"))
+    def data_weekly(self):
+        return date_now().date_return()
+    def data(self):
+        self.data = int(datetime.datetime.now().strftime("%d"))
+        return self.data
     def para(self):
-        return date_now().para_return(self.data, date_now().quest_return(date_now().time_return()), self.cal, self.full_time)
+        return date_now().para_return(self.data_weekly(), date_now().quest_return(date_now().time_return()), self.cal, self.full_time)
     def peremena(self):
-        return date_now().perema_now_retuen(date_now().quest_return())
+        return date_now().perema_now_retuen(date_now().quest_return(date_now().time_return()))
     def time(self):
         return date_now().time_return()
     def quest(self):
         return date_now().quest_return(date_now().time_return())
     def time_float(self):
         return float(f"{date_now().time_return().split(":")[0]}.{date_now().time_return().split(":")[1]}")
+if __name__ == '__main__':
+    print(data().data())
