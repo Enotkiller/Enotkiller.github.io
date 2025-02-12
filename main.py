@@ -19,8 +19,10 @@ datenow = db.data_weekly()
 days = ["Понедельник", "Вторник", "Среда", "Четвегр", "Пятница"]
 @dp.message(Command("para"))
 async def cmd_start(message: Message):
-    if datenow <= 5 and db.time_float() <= 14.50:
+    if datenow <= 5 and db.time_float() <= 14.50 and message.from_user.username != "@Argrosa":
         await message.answer(f"{days[datenow - 1]}\nТекущее время: {db.time()}\n{"Текущая" if not db.peremena() else "Будет"} пара: {db.para()}\nСтатус: {("Отпустили" if db.otmena_now() == 1 else "Перемена" if db.peremena() else "Идёт") if db.para() != "Пары нет" else "Ничего нет"}\nСсылка: {db.get_url()}")
+    elif message.from_user.username == "@Argrosa":
+        await message.answer(f"Картель вызван...\nВремя: {db.time()}\nОписание к заказу: лиж бы все, но не {db.para()}")
     else:
         await message.answer("Какие уроки челл.")
 @dp.message(Command("otmena"))
