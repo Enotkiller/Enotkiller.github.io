@@ -33,23 +33,23 @@ class date_now:
     def quest_return(self, _time):
         data = _time.split(":")
         time = float(f"{data[0]}.{data[1]}")
-        if time >= 8.0 and time <= 9.50:
+        if time >= 8.0 and time <= 9.49:
             if time >= 8.0 and time <= 8.30:
                 return -1
             else:
                 return 1
         elif time >= 9.50 and time <= 11.20:
-            if time >= 9.50 and time <= 10.0:
+            if time >= 9.50 and time <= 9.59:
                 return -2
             else:
                 return 2
         elif time >= 11.20 and time <= 13.20:
-            if time >= 11.20 and time <= 12.0:
+            if time >= 11.20 and time <= 11.59:
                 return -3
             else:
                 return 3
         elif time >= 13.20 and time <= 14.50:
-            if time >= 13.20 and time <= 13.30:
+            if time >= 13.20 and time <= 13.29:
                 return -4
             else:
                 return 4
