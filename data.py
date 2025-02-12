@@ -36,9 +36,27 @@ class data:
                 4 : None
             }
         }
+        self.url = {
+    "Биология" : "https://meet.google.com/eed-rtog-srd?authuser=4&hs=179",
+    "Химия" : "https://meet.google.com/cut-rvao-zbt?authuser=4&hs=179",
+    "Оборона Украины" : "https://meet.google.com/uqv-omtr-bwx?authuser=4&hs=179",
+    "Физра" : "https://meet.google.com/mxt-wvmr-gny?authuser=4&hs=179",
+    "Английский" : "1 Группа: https://meet.google.com/svs-snwo-tfm?authuser=4&hs=179\n2 Группа: https://meet.google.com/hdq-zamk-pka",
+    "Математика" : "https://us02web.zoom.us/j/84351065107?pwd=WOrdR7On7gbcrPynf178H0A9FW3M3k.1",
+    "Зарубежная литература" : "https://meet.google.com/mnx-uxwk-wgo?authuser=4&hs=179",
+    "История Украины" : "https://meet.google.com/zww-totu-kva?authuser=4&hs=179",
+    "География" : "https://meet.google.com/gyc-nwne-nvi?authuser=4&hs=179",
+    "Физика" : "https://meet.google.com/znu-moir-atb?authuser=4&hs=179",
+    "Информатика" : "https://meet.google.com/kwt-xdbj-kdq?authuser=4&hs=179",
+    "Украинский язык" : "https://meet.google.com/jkz-wqku-xyh?authuser=4&hs=179",
+    "Украинская литература" : "https://meet.google.com/nem-mhnk-ghe?authuser=4&hs=179",
+    "Всемирная история" : "https://meet.google.com/qay-vxca-jfw?authuser=4&hs=179"
+}
         self.full_time = date_now().full_date_return()
         self.data = int(datetime.datetime.now().strftime("%d"))
         self.otmena_mass = [0, 0, 1]
+    def get_url(self):
+        return self.url.get(self.para())
     def reverse_otmena(self):
         self.otmena_mass[2] = 2
         if (self.quest() if self.quest() > 0 else self.quest() * -1) > self.otmena_mass[1]:
