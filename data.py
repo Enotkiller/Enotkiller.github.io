@@ -37,7 +37,7 @@ class data:
             }
         }
         self.url = {
-    "Биология" : "https://meet.google.com/eed-rtog-srd9",
+    "Биология" : "https://meet.google.com/eed-rtog-srd",
     "Химия" : "https://meet.google.com/cut-rvao-zbt",
     "Оборона Украины" : "https://meet.google",
     "Физра" : "https://meet.google.com/mxt-wvmr-gny",
