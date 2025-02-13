@@ -15,7 +15,7 @@ idd = {
 
 bot = Bot(token = '7080600577:AAHIKU7SrX8XmQrcnZlb5fLtVjOtAdHt-NU')
 dp = Dispatcher()
-days = ["Понедельник", "Вторник", "Среда", "Четвегр", "Пятница"]
+days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"]
 @dp.message(Command("para"))
 async def cmd_start(message: Message):
     print(message.from_user.username, message.from_user.id)
