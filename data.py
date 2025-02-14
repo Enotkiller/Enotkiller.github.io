@@ -54,13 +54,14 @@ class data:
 }
         self.full_time = date_now().full_date_return()
         self.data = int(datetime.datetime.now().strftime("%d"))
-        self.otmena_mass = [0, 0, 1]
+        self.otmena_mass = [0, 0, 1, 0]
     def get_url(self):
         return self.url.get(self.para())
     def reverse_otmena(self):
         self.otmena_mass[2] = 2
-        if (self.quest() if self.quest() > 0 else self.quest() * -1) > self.otmena_mass[1]:
+        if (self.quest() if self.quest() > 0 else self.quest() * -1) > self.otmena_mass[1] or date_now().date_return() != self.otmena_mass[3]:
             self.otmena_mass[0] = 0
+            self.otmena_mass[1] = 0
             self.otmena_mass[2] = 0
         else:
             self.otmena_mass[2] = 0
@@ -69,7 +70,7 @@ class data:
         self.quest()
         return self.otmena_mass[0]
     def otmena(self):
-        self.otmena_mass = [1, self.quest() if self.quest() > 0 else self.quest() * -1, 0]
+        self.otmena_mass = [1, self.quest() if self.quest() > 0 else self.quest() * -1, 0, date_now().date_return()]
     def data_weekly(self):
         return date_now().date_return()
     def data(self):
