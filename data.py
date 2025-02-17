@@ -89,12 +89,4 @@ class data:
     def time_float(self):
         return float(f"{date_now().time_return().split(":")[0]}.{date_now().time_return().split(":")[1]}")
 if __name__ == '__main__':
-    db = data()
-    db.start()
-    print(db.para())
-    print(db.otmena_mass)
-    db.otmena()
-    print(db.otmena_mass)
-    print(db.otmena_now())
-    print(db.otmena_mass)
-    print(db.otmena_mass)
+    print(int(datetime.datetime.now().strftime("%y")))

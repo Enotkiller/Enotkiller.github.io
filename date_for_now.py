@@ -9,9 +9,10 @@ class date_now:
         cogda_mounth, cogda_day = 2, 10
         mounth = int(datetime.datetime.now().strftime("%m"))
         day = int(datetime.datetime.now().strftime("%d"))
+        year = int(datetime.datetime.now().strftime("20%y"))
         now = 0
         for i in range(mounth - cogda_mounth + 1):
-            for j in range(1, calendar.monthrange(2025, i + cogda_mounth)[1] + 1):
+            for j in range(1, calendar.monthrange(year, i + cogda_mounth)[1] + 1):
                 if i == 0 and j <= 9:
                     pass
                 else:
@@ -24,7 +25,8 @@ class date_now:
                         break
         return now
     def date_for_weekly(self, mounth, day):
-        date = datetime.date(2025, mounth, day)
+        year = int(datetime.datetime.now().strftime("20%y"))
+        date = datetime.date(year, mounth, day)
         return date.isoweekday()
     def time_return(self):
         time = datetime.datetime.now().strftime("%H:%M")
