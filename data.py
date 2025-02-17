@@ -39,7 +39,7 @@ class data:
         self.url = {
     "Биология" : "https://meet.google.com/eed-rtog-srd",
     "Химия" : "https://meet.google.com/cut-rvao-zbt",
-    "Оборона Украины" : "https://meet.google",
+    "Оборона Украины" : "https://meet.google.com/uqv-omtr-bwx",
     "Физра" : "https://meet.google.com/mxt-wvmr-gny",
     "Английский" : "1 Группа: https://meet.google.com/svs-snwo-tfm\n2 Группа: https://meet.google.com/hdq-zamk-pka",
     "Математика" : "https://us02web.zoom.us/j/84351065107?pwd=WOrdR7On7gbcrPynf178H0A9FW3M3k.1",
