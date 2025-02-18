@@ -29,6 +29,10 @@ async def cmd_start(message: Message):
 @dp.message(Command("papa"))
 async def papa(message: Message):
     await message.answer("Нету у тебя папы.")
+
+@dp.message(Command("mama"))
+async def papa(message: Message):
+    await message.answer("Нету у тебя мамы.")
 @dp.message(Command("otmena"))
 async def otmena_pari(message: Message):
     if message.from_user.id == idd.get(1) or idd.get(2):
