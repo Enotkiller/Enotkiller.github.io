@@ -25,6 +25,9 @@ async def cmd_start(message: Message):
         await message.answer(f"Картель вызван...\nВремя: {db.time()}\nОписание к заказу: лиж бы все, но не {db.para()}")
     else:
         await message.answer("Какие уроки челл.")
+@db.message(Command("papa"))
+async def papa(message: Message):
+    await message.answer("Нету у тебя папы.")
 @dp.message(Command("otmena"))
 async def otmena_pari(message: Message):
     if message.from_user.id == idd.get(1) or idd.get(2):
