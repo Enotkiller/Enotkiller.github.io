@@ -54,24 +54,31 @@ class data:
                 4.5 : None
             }
         }
+        #все числа которые дробные это то что в знаменатиили на той паре то есть с начало идёт словвари от 1 до 5 - это дни нидели, а в них пары от 1 до 4, и если есть напимер что во вторик на второй паре если числитель то будет манеша, а если знаменатель то пишите 2.5 : инфа и когда будет знаменатель то напишет инфу а не матишу.
         self.url = {
-    "Биология" : "https://meet.google.com/eed-rtog-srd",
-    "Химия" : "https://meet.google.com/cut-rvao-zbt",
-    "Оборона Украины" : "https://meet.google.com/uqv-omtr-bwx",
-    "Физра" : "https://meet.google.com/mxt-wvmr-gny",
-    "Английский" : "1 Группа: https://meet.google.com/svs-snwo-tfm\n2 Группа: https://meet.google.com/hdq-zamk-pka",
-    "Математика" : "https://us02web.zoom.us/j/84351065107?pwd=WOrdR7On7gbcrPynf178H0A9FW3M3k.1",
-    "Зарубежная литература" : "https://meet.google.com/mnx-uxwk-wgo",
-    "История Украины" : "https://meet.google.com/zww-totu-kva",
-    "География" : "https://meet.google.com/gyc-nwne-nvi",
-    "Физика" : "https://meet.google.com/znu-moir-atb",
-    "Информатика" : "https://meet.google.com/kwt-xdbj-kdq",
-    "Украинский язык" : "https://meet.google.com/jkz-wqku-xyh",
-    "Украинская литература" : "https://meet.google.com/nem-mhnk-ghe",
-    "Всемирная история" : "https://meet.google.com/qay-vxca-jfw"
-}
+            "Биология" : "https://meet.google.com/eed-rtog-srd",
+            "Химия" : "https://meet.google.com/cut-rvao-zbt",
+            "Оборона Украины" : "https://meet.google.com/uqv-omtr-bwx",
+            "Физра" : "https://meet.google.com/mxt-wvmr-gny",
+            "Английский" : "1 Группа: https://meet.google.com/svs-snwo-tfm\n2 Группа: https://meet.google.com/hdq-zamk-pka",
+            "Математика" : "https://us02web.zoom.us/j/84351065107?pwd=WOrdR7On7gbcrPynf178H0A9FW3M3k.1",
+            "Зарубежная литература" : "https://meet.google.com/mnx-uxwk-wgo",
+            "История Украины" : "https://meet.google.com/zww-totu-kva",
+            "География" : "https://meet.google.com/gyc-nwne-nvi",
+            "Физика" : "https://meet.google.com/znu-moir-atb",
+            "Информатика" : "https://meet.google.com/kwt-xdbj-kdq",
+            "Украинский язык" : "https://meet.google.com/jkz-wqku-xyh",
+            "Украинская литература" : "https://meet.google.com/nem-mhnk-ghe",
+            "Всемирная история" : "https://meet.google.com/qay-vxca-jfw"
+        }
         self.data = int(datetime.datetime.now().strftime("%d"))
         self.otmena_mass = [0, 0, 1, 0]
+        self.x = 2
+        # это на сколько увиличивается время, то есть если у вас 2 часа дня а x тоже 2 то тогда скажет что сейчас 4 часа дня, это надо для того что бы когда бот находится не в украине а в калифорнии как у меня, но так как в калифорнии на 2 часа меньше чем в укр, то время надо увиличить на 2.
+        self.now = 1
+        self.now_day = 10
+        self.now_mounth = 2
+        # пишите дату в now_day и now_mounth, а в now пишите какой тип недели в ту дату которую вы записали. 1 = числитель, 0 = знаменатель.
     def get_url(self):
         return self.url.get(self.para())
     def reverse_otmena(self):
@@ -94,17 +101,17 @@ class data:
         self.data = int(datetime.datetime.now().strftime("%d"))
         return self.data
     def para(self):
-        return date_now().para_return(self.data_weekly(), date_now().quest_return(date_now().time_return()), self.cal, date_now().full_date_return())
+        return date_now().para_return(self.data_weekly(), date_now().quest_return(date_now().time_return(self.x)), self.cal, date_now().full_date_return(self.now, self.now_day, self.now_mounth))
     def peremena(self):
-        return date_now().perema_now_retuen(date_now().quest_return(date_now().time_return()))
+        return date_now().perema_now_retuen(date_now().quest_return(date_now().time_return(self.x)))
     def time(self):
         return date_now().time_return()
     def quest(self):
         if self.otmena_mass[2] == 0:
             self.reverse_otmena()
-        return date_now().quest_return(date_now().time_return())
+        return date_now().quest_return(date_now().time_return(self.x))
     def time_float(self):
-        return float(f"{date_now().time_return().split(":")[0]}.{date_now().time_return().split(":")[1]}")
+        return float(f"{date_now().time_return(self.x).split(":")[0]}.{date_now(self.x).time_return().split(":")[1]}")
 if __name__ == '__main__':
     db = data()
     db.start()

@@ -5,12 +5,12 @@ class date_now:
     def date_return(self):
         res = datetime.datetime.now()
         return int(res.isoweekday())
-    def full_date_return(self):
-        cogda_mounth, cogda_day = 2, 10
+    def full_date_return(self, _now = 1, day = 10, mounth = 2):
+        cogda_mounth, cogda_day = mounth, day
         mounth = int(datetime.datetime.now().strftime("%m"))
         day = int(datetime.datetime.now().strftime("%d"))
         year = int(datetime.datetime.now().strftime("20%y"))
-        now = 1
+        now = _now
         for i in range(mounth - cogda_mounth + 1):
             for j in range(1, calendar.monthrange(year, i + cogda_mounth)[1] + 1):
                 if i == 0 and j <= 9:
@@ -28,8 +28,8 @@ class date_now:
         year = int(datetime.datetime.now().strftime("20%y"))
         date = datetime.date(year, mounth, day)
         return date.isoweekday()
-    def time_return(self):
-        x = 2
+    def time_return(self, x = 2):
+
         time = datetime.datetime.now().strftime("%H:%M")
         time = str(f"{int(time.split(":")[0]) + x}:{time.split(":")[1]}")
         return time
