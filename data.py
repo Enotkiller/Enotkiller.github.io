@@ -111,7 +111,7 @@ class data:
             self.reverse_otmena()
         return date_now().quest_return(date_now().time_return(self.x))
     def time_float(self):
-        return float(f"{date_now().time_return(self.x).split(":")[0]}.{date_now(self.x).time_return().split(":")[1]}")
+        return float(f"{date_now().time_return(self.x).split(":")[0]}.{date_now().time_return(self.x).split(":")[1]}")
 if __name__ == '__main__':
     db = data()
     db.start()
