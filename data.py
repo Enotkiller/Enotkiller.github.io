@@ -88,4 +88,6 @@ class data:
     def time_float(self):
         return float(f"{date_now().time_return().split(":")[0]}.{date_now().time_return().split(":")[1]}")
 if __name__ == '__main__':
-    print(int(datetime.datetime.now().strftime("%y")))
+    db = data()
+    db.start()
+    print(db.para())

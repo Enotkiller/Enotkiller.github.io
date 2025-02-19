@@ -29,8 +29,9 @@ class date_now:
         date = datetime.date(year, mounth, day)
         return date.isoweekday()
     def time_return(self):
+        x = 2
         time = datetime.datetime.now().strftime("%H:%M")
-        time = str(f"{int(time.split(":")[0]) + 2}:{time.split(":")[1]}")
+        time = str(f"{int(time.split(":")[0]) + x}:{time.split(":")[1]}")
         return time
     def quest_return(self, _time):
         data = _time.split(":")
@@ -66,7 +67,7 @@ class date_now:
         if data <= 5:
             for i in range(1, 4 + 1):
                 if quest == i or quest == i * -1:
-                    if (data != 3 and data != 4) and full_date == 0:
+                    if full_date == 1:
                         parameters = cal.get(data).get(i)
                     else:
                         if data == 3 and (quest == 2 or quest == 2 * -1):
