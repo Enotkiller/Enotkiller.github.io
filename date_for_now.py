@@ -70,14 +70,11 @@ class date_now:
                     if full_date == 1:
                         parameters = cal.get(data).get(i)
                     else:
-                        if data == 3 and (quest == 2 or quest == 2 * -1):
-                            parameters = cal.get(data).get(2.5)
-                        elif data == 3 and (quest == 3 or quest == 3 * -1):
-                            parameters = cal.get(data).get(3.5)
-                        elif data == 4 and (quest == 3 or quest == 3 * -1):
-                            parameters = cal.get(data).get(3.5)
-                        elif quest == i or quest == i * -1:
+                        if cal.get(data).get(float(f"{i}.5")) is None:
                             parameters = cal.get(data).get(i)
+                        else:
+                            parameters = cal.get(data).get(float(f"{i}.5"))
+
             if parameters != None:
                 return parameters
             else:
