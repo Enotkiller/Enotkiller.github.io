@@ -52,7 +52,6 @@ class data:
     "Украинская литература" : "https://meet.google.com/nem-mhnk-ghe",
     "Всемирная история" : "https://meet.google.com/qay-vxca-jfw"
 }
-        self.full_time = date_now().full_date_return()
         self.data = int(datetime.datetime.now().strftime("%d"))
         self.otmena_mass = [0, 0, 1, 0]
     def get_url(self):
@@ -77,7 +76,7 @@ class data:
         self.data = int(datetime.datetime.now().strftime("%d"))
         return self.data
     def para(self):
-        return date_now().para_return(self.data_weekly(), date_now().quest_return(date_now().time_return()), self.cal, self.full_time)
+        return date_now().para_return(self.data_weekly(), date_now().quest_return(date_now().time_return()), self.cal, date_now().full_date_return())
     def peremena(self):
         return date_now().perema_now_retuen(date_now().quest_return(date_now().time_return()))
     def time(self):
