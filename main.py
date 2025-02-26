@@ -30,7 +30,7 @@ async def cmd_start(message: Message, command: CommandObject):
 async def test(message: Message, command: CommandObject):
     args = command.args
     await message.answer(args)
-
+    print(args)
 
 @dp.message(Command("papa"))
 async def papa(message: Message):
