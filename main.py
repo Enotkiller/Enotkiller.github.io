@@ -18,20 +18,22 @@ dp = Dispatcher()
 days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"]
 @dp.message(Command("para"))
 async def cmd_start(message: Message, command: CommandObject):
-    args = command.args
-    print(message.from_user.username, message.from_user.id)
-    if db.data_weekly() <= 5 and db.time_float() <= 14.50 and message.from_user.id != 5376094724:
-        await message.answer(f"{days[db.data_weekly() - 1]}\nТекущее время: {db.time()}\n{"Текущая" if not db.peremena() else "Будет"} пара: {db.para()}\nСтатус: {(("Отпустили" if db.otmena_now() == 1 else "Перемена" if db.peremena() else ("Идёт") if message.from_user.id != 7250542929 else "Не идёт, а летит") if db.para() != "Пары нет" else "Ничего нет")}\nСсылка: {db.get_url()}")
-    elif message.from_user.id == 5376094724:
-        await message.answer(f"Картель вызван...\nВремя: {db.time()}\nОписание к заказу: лиж бы все, но не {db.para()}")
-    else:
-        await message.answer("Какие уроки челл.")
+    args = (command.args.split()) if command.args != None else (command.args)
+    if args == None:
+        print(message.from_user.username, message.from_user.id)
+        if db.data_weekly() <= 5 and db.time_float() <= 14.50 and message.from_user.id != 5376094724:
+            await message.answer(f"{days[db.data_weekly() - 1]}\nТекущее время: {db.time()}\n{"Текущая" if not db.peremena() else "Будет"} пара: {db.para()}\nСтатус: {(("Отпустили" if db.otmena_now() == 1 else "Перемена" if db.peremena() else ("Идёт") if message.from_user.id != 7250542929 else "Не идёт, а летит") if db.para() != "Пары нет" else "Ничего нет")}\nСсылка: {db.get_url()}")
+        elif message.from_user.id == 5376094724:
+            await message.answer(f"Картель вызван...\nВремя: {db.time()}\nОписание к заказу: лиж бы все, но не {db.para()}")
+        else:
+            await message.answer("Какие уроки челл.")
+    elif args[0].lower() != "all":
+        await message.answer(f"{args[0]} Парой будет {db.para(now_p=int(args[0]))}.")
+    elif args[0].lower() == "all":
+        await message.answer(f"{days[db.data_weekly() - 1]}\n1: {db.para(1)}\n2: {db.para(2)}\n3: {db.para(3)}\n4: {db.para(4)}")
 @dp.message(Command("test"))
 async def test(message: Message, command: CommandObject):
-    args = command.args
-    await message.answer(args)
-    print(args, "\n", command)
-
+    pass
 @dp.message(Command("papa"))
 async def papa(message: Message):
     await message.answer("Нету у тебя папы.")

@@ -71,7 +71,7 @@ class data:
             "Украинская литература" : "https://meet.google.com/nem-mhnk-ghe",
             "Всемирная история" : "https://meet.google.com/qay-vxca-jfw"
         }
-        self.data = int(datetime.datetime.now().strftime("%d"))
+        self.data =lambda : int(datetime.datetime.now().strftime("%d"))
         self.otmena_mass = [0, 0, 1, 0]
         self.x = 2
         # это на сколько увиличивается время, то есть если у вас 2 часа дня а x тоже 2 то тогда скажет что сейчас 4 часа дня, это надо для того что бы когда бот находится не в украине а в калифорнии как у меня, но так как в калифорнии на 2 часа меньше чем в укр, то время надо увиличить на 2.
@@ -89,7 +89,6 @@ class data:
             self.otmena_mass[2] = 0
         else:
             self.otmena_mass[2] = 0
-
     def otmena_now(self):
         self.quest()
         return self.otmena_mass[0]
@@ -97,22 +96,19 @@ class data:
         self.otmena_mass = [1, self.quest() if self.quest() > 0 else self.quest() * -1, 0, date_now().date_return()]
     def data_weekly(self):
         return date_now().date_return()
-    def data(self):
-        self.data = int(datetime.datetime.now().strftime("%d"))
-        return self.data
-    def para(self):
-        return date_now().para_return(self.data_weekly(), date_now().quest_return(date_now().time_return(self.x)), self.cal, date_now().full_date_return(self.now, self.now_day, self.now_mounth))
+    def para(self, now_p = date_now().quest_return(date_now().time_return())):
+        return date_now().para_return(self.data_weekly(), now_p, self.cal, date_now().full_date_return(self.now, self.now_day, self.now_mounth))
     def peremena(self):
-        return date_now().perema_now_retuen(date_now().quest_return(date_now().time_return(self.x)))
+        return date_now().perema_now_retuen(date_now().quest_return(date_now().time_return()))
     def time(self):
         return date_now().time_return()
     def quest(self):
         if self.otmena_mass[2] == 0:
             self.reverse_otmena()
-        return date_now().quest_return(date_now().time_return(self.x))
+        return date_now().quest_return(date_now().time_return())
     def time_float(self):
-        return float(f"{date_now().time_return(self.x).split(":")[0]}.{date_now().time_return(self.x).split(":")[1]}")
+        return float(f"{date_now().time_return().split(":")[0]}.{date_now().time_return().split(":")[1]}")
 if __name__ == '__main__':
     db = data()
     db.start()
-    print(db.para())
+    print(db.para(2))

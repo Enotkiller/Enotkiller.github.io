@@ -28,10 +28,10 @@ class date_now:
         year = int(datetime.datetime.now().strftime("20%y"))
         date = datetime.date(year, mounth, day)
         return date.isoweekday()
-    def time_return(self, x = 2):
-
-        time = datetime.datetime.now().strftime("%H:%M")
-        time = str(f"{int(time.split(":")[0]) + x}:{time.split(":")[1]}")
+    def time_return(self):
+        utc_now = datetime.datetime.now(datetime.timezone.utc)
+        utc_plus_2 = utc_now + datetime.timedelta(hours=2)
+        time = utc_plus_2.strftime("%H:%M")
         return time
     def quest_return(self, _time):
         data = _time.split(":")
@@ -83,4 +83,4 @@ class date_now:
             return "Выходные"
 
 if __name__ == '__main__':
-    print(date_now().full_date_return())
+    pass
