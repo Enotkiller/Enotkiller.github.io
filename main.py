@@ -14,6 +14,7 @@ idd = {
 }
 API_TOKEN = '7652049176:AAEk6LMwxKSpzPFSa3fySdZ8PHzh69Wdhzg'
 chat_id = '-1002228889442'
+test_id = '-1002419689146'
 bot = Bot(token = API_TOKEN)
 dp = Dispatcher()
 days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"]
@@ -52,7 +53,8 @@ async def otmena_pari(message: Message):
 async def test(message : Message):
     db.read_file()
     print(db.all)
-
+    print(message.chat.id)
+    print(message.chat.active_usernames)
 @dp.message(Command("pingme"))
 async def pingme(message : Message):
     db.ping(message)
@@ -72,7 +74,17 @@ async def delete(message : Message):
     if message.from_user.id == idd.get(1) or idd.get(2):
         with open("ping.txt", "w") as f:
             pass
-
+@dp.message(Command("new"))
+async def new(message : Message, command: CommandObject):
+    args = command.args
+    print(args)
+    with open("ping.txt", "w") as file:
+        file.write(str(args))
+@dp.message(Command("last"))
+async def last(message : Message):
+    if message.from_user.id == idd.get(1) or idd.get(2):
+        with open("ping.txt", "r") as file:
+            await bot.send_message(chat_id=test_id, text=f"last\n{file.read()}")
 async def send_message():
     try:
         db.read_file()
