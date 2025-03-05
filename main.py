@@ -12,7 +12,7 @@ idd = {
     2 : 1522348807
 }
 API_TOKEN = '7652049176:AAEk6LMwxKSpzPFSa3fySdZ8PHzh69Wdhzg'
-chat_id = '-1002419689146'
+chat_id = '-1002228889442'
 bot = Bot(token = API_TOKEN)
 dp = Dispatcher()
 days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"]
@@ -87,7 +87,7 @@ async def scheduler(target_times: list):
         await send_message()
 
 async def on_startup():
-    asyncio.create_task(scheduler(["08:28", "09:58", "10:31", "11:58", "13:25"]))
+    asyncio.create_task(scheduler(["08:28", "09:58", "11:58", "13:25"]))
 async def main():
     await on_startup()
     await dp.start_polling(bot)
