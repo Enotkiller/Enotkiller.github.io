@@ -96,6 +96,7 @@ class data:
                     self.all.append(i.split(" "))
                     self.id.append(i.split(" ")[0])
                     self.username.append(i.split(" ")[1])
+            print(file.read())
     def ping(self, message : Message):
         self.read_file()
 
