@@ -50,19 +50,29 @@ async def otmena_pari(message: Message):
 
 @dp.message(Command("test"))
 async def test(message : Message):
-    print(message.chat.id)
+    db.read_file()
+    print(db.all)
 
 @dp.message(Command("pingme"))
 async def pingme(message : Message):
     db.ping(message)
 @dp.message(Command("pingwho"))
 async def pingwho(message : Message):
-    with open("ping.txt", "r") as file:
-        if file.read() == "":
-            await message.answer("Нет кого пинговать.")
-        else:
-            db.read_file()
-            await message.reply( *db.username)
+    db.read_file()
+    if len(db.all) == 0:
+        await message.answer("Нет кого пинговать.")
+    else:
+        text = "Вот всё кого будет пинговать: " + db.username[0]
+        if len(db.username) > 1:
+            for i in range(1, len(db.username)):
+                text = f"{text}, {db.username[i]}"
+        await message.reply(text)
+@dp.message(Command("delete"))
+async def delete(message : Message):
+    if message.from_user.id == idd.get(1) or idd.get(2):
+        with open("ping.txt", "w") as f:
+            pass
+
 async def send_message():
     try:
         db.read_file()
