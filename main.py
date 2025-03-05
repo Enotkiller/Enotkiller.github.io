@@ -54,7 +54,14 @@ async def test(message : Message):
 @dp.message(Command("pingme"))
 async def pingme(message : Message):
     db.ping(message)
-
+@dp.message(Command("pingwho"))
+async def pingwho(message : Message):
+    with open("ping.txt", "r") as file:
+        if file.read() == "":
+            await message.answer("Нет кого пинговать.")
+        else:
+            db.read_file()
+            print(*db.username)
 async def send_message():
     try:
         db.read_file()
