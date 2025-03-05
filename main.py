@@ -11,7 +11,7 @@ idd = {
     1 : 1528266799,
     2 : 1522348807
 }
-API_TOKEN = '7080600577:AAHIKU7SrX8XmQrcnZlb5fLtVjOtAdHt-NU'
+API_TOKEN = '7652049176:AAEk6LMwxKSpzPFSa3fySdZ8PHzh69Wdhzg'
 chat_id = '-1002419689146'
 bot = Bot(token = API_TOKEN)
 dp = Dispatcher()

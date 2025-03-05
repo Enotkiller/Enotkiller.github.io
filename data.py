@@ -91,30 +91,41 @@ class data:
         self.username = []
         with open("ping.txt", "r") as file:
             for i in file.read().split("\n"):
-                print(i)
-                self.all.append(i.split(" "))
-                self.id.append(i.split(" ")[0])
-                self.username.append(i.split(" ")[1])
+                if i != '':
+                    print(i)
+                    self.all.append(i.split(" "))
+                    self.id.append(i.split(" ")[0])
+                    self.username.append(i.split(" ")[1])
     def ping(self, message : Message):
         self.read_file()
-        if not str(message.from_user.id) in id:
+
+        if not str(message.from_user.id) in self.id:
             with open("ping.txt", "a") as file:
-                file.write(f"\n{message.from_user.id} {message.from_user.username}")
+                if len(self.all) > 0:
+                    file.write(f"\n{message.from_user.id} {message.from_user.username}")
+                else:
+                    file.write(f"{message.from_user.id} {message.from_user.username}")
+
         else:
             with open("ping.txt", "w"):
                 pass
-            mass = []
+            mass = self.all
+            self.all = []
+            self.id = []
+            self.username = []
             for i in mass:
                 q = []
                 for j in i:
-                    if j == message.from_user.id:
+                    if j == str(message.from_user.id) or j == str(message.from_user.username):
                         break
                     else:
                         q.append(j)
-                with open("ping.txt", "a") as f:
-                    f.write(f"{q[0]} {q[1]}\n")
-                id.append(q[0])
-                mass.append(q)
+                if q != []:
+                    with open("ping.txt", "a") as f:
+                        f.write(f"{"\n"if len(self.all) != 0 else ""}{q[0]} {q[1]}")
+                    self.username.append(q[1])
+                    self.id.append(q[0])
+                    self.all.append(q)
     def get_url(self):
         return self.url.get(self.para())
     def reverse_otmena(self):
