@@ -1,10 +1,11 @@
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, timezone
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandObject
 import asyncio
 from data import data
+from zoneinfo import ZoneInfo
 db = data()
 db.start()
 idd = {
@@ -61,7 +62,7 @@ async def pingwho(message : Message):
             await message.answer("Нет кого пинговать.")
         else:
             db.read_file()
-            print(*db.username)
+            await message.reply( *db.username)
 async def send_message():
     try:
         db.read_file()
@@ -78,18 +79,24 @@ async def send_message():
         print(f"Ошибка при отправке сообщения: {e}")
 
 async def scheduler(target_times: list):
+    utc_plus_2 = ZoneInfo("Europe/Kiev")
     while True:
-        now = datetime.now()
+        now = datetime.now(utc_plus_2)
         future_targets = []
         for time_str in target_times:
-            target = db.time()
-            target = now.replace(hour=target.split(":")[0], minute=target.split(":")[1], second=0, microsecond=0)
+            target_hour, target_minute = map(int, time_str.split(":"))
+            target = now.replace(
+                hour=target_hour,
+                minute=target_minute,
+                second=0,
+                microsecond=0
+            )
             if now > target:
                 target += timedelta(days=1)
             future_targets.append(target)
         next_target = min(future_targets)
         wait_seconds = (next_target - now).total_seconds()
-        print(f"Ожидание до {next_target.strftime('%H:%M')} ({wait_seconds:.0f} секунд)")
+        print(f"Ожидание до {next_target.strftime('%H:%M')} UTC+2 ({wait_seconds:.0f} секунд)")
         await asyncio.sleep(wait_seconds)
         await send_message()
 
