@@ -75,7 +75,7 @@ async def scheduler(target_times: list):
         now = datetime.now()
         future_targets = []
         for time_str in target_times:
-            target = datetime.strptime(time_str, "%H:%M")
+            target = db.time()
             target = now.replace(hour=target.hour, minute=target.minute, second=0, microsecond=0)
             if now > target:
                 target += timedelta(days=1)
