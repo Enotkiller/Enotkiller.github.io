@@ -1,5 +1,8 @@
+from aiogram.types import Message
+
 from date_for_now import date_now
 import datetime
+
 class data:
     def start(self):
         self.cal = {
@@ -79,6 +82,39 @@ class data:
         self.now_day = 10
         self.now_mounth = 2
         # пишите дату в now_day и now_mounth, а в now пишите какой тип недели в ту дату которую вы записали. 1 = числитель, 0 = знаменатель.
+        self.id = []
+        self.all = []
+        self.username = []
+    def read_file(self):
+        self.all = []
+        self.id = []
+        self.username = []
+        with open("ping.txt", "r") as file:
+            for i in file.read().split("\n"):
+                print(i)
+                self.all.append(i.split(" "))
+                self.id.append(i.split(" ")[0])
+                self.username.append(i.split(" ")[1])
+    def ping(self, message : Message):
+        self.read_file()
+        if not str(message.from_user.id) in id:
+            with open("ping.txt", "a") as file:
+                file.write(f"\n{message.from_user.id} {message.from_user.username}")
+        else:
+            with open("ping.txt", "w"):
+                pass
+            mass = []
+            for i in mass:
+                q = []
+                for j in i:
+                    if j == message.from_user.id:
+                        break
+                    else:
+                        q.append(j)
+                with open("ping.txt", "a") as f:
+                    f.write(f"{q[0]} {q[1]}\n")
+                id.append(q[0])
+                mass.append(q)
     def get_url(self):
         return self.url.get(self.para())
     def reverse_otmena(self):
@@ -115,4 +151,7 @@ class data:
 if __name__ == '__main__':
     db = data()
     db.start()
-    print(db.para())
+    db.read_file()
+    print(db.all)
+    print(db.id)
+    print(db.username)

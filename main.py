@@ -1,10 +1,8 @@
-#файл пидора
-from aiogram import Bot, Dispatcher, types
-from aiogram.client.session import aiohttp
-from aiogram.types import Message, User
+from datetime import timedelta, datetime
+from aiogram import Bot, Dispatcher
+from aiogram.types import Message
 from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandObject
-import logging
 import asyncio
 from data import data
 db = data()
@@ -14,6 +12,7 @@ idd = {
     2 : 1522348807
 }
 API_TOKEN = '7080600577:AAHIKU7SrX8XmQrcnZlb5fLtVjOtAdHt-NU'
+chat_id = '-1002419689146'
 bot = Bot(token = API_TOKEN)
 dp = Dispatcher()
 days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"]
@@ -40,13 +39,57 @@ async def papa(message: Message):
 @dp.message(Command("mama"))
 async def papa(message: Message):
     await message.answer("Нету у тебя мамы.")
+
 @dp.message(Command("otmena"))
 async def otmena_pari(message: Message):
     if message.from_user.id == idd.get(1) or idd.get(2):
         db.otmena()
         text = "Параметр: <b>Отмена Пары</b> успешно поставлен!"
         await message.answer(text, parse_mode=ParseMode.HTML)
+
+@dp.message(Command("test"))
+async def test(message : Message):
+    print(message.chat.id)
+
+@dp.message(Command("pingme"))
+async def pingme(message : Message):
+    db.ping(message)
+
+async def send_message():
+    try:
+        db.read_file()
+        username = db.username
+        text = "@" + username[0]
+        print(username, len(username))
+        if len(username) > 1:
+            for i in range(1, len(username)):
+                text = f"{text}, @{username[i]}"
+        await bot.send_message(chat_id=chat_id, text=f"Пара некст - {db.para()}.\nСсылка - {db.get_url()}.")
+        await bot.send_message(chat_id=chat_id, text=f"Пинг: {text}")
+        print(f"Сообщение отправлено в {datetime.now().strftime('%H:%M:%S')}")
+    except Exception as e:
+        print(f"Ошибка при отправке сообщения: {e}")
+
+async def scheduler(target_times: list):
+    while True:
+        now = datetime.now()
+        future_targets = []
+        for time_str in target_times:
+            target = datetime.strptime(time_str, "%H:%M")
+            target = now.replace(hour=target.hour, minute=target.minute, second=0, microsecond=0)
+            if now > target:
+                target += timedelta(days=1)
+            future_targets.append(target)
+        next_target = min(future_targets)
+        wait_seconds = (next_target - now).total_seconds()
+        print(f"Ожидание до {next_target.strftime('%H:%M')} ({wait_seconds:.0f} секунд)")
+        await asyncio.sleep(wait_seconds)
+        await send_message()
+
+async def on_startup():
+    asyncio.create_task(scheduler(["08:28", "09:58", "10:31", "11:58", "13:25"]))
 async def main():
+    await on_startup()
     await dp.start_polling(bot)
 if __name__ == "__main__":
     asyncio.run(main())
