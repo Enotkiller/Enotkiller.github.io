@@ -83,7 +83,7 @@ async def scheduler(target_times: list):
         future_targets = []
         for time_str in target_times:
             target = db.time()
-            target = now.replace(hour=target.hour, minute=target.minute, second=0, microsecond=0)
+            target = now.replace(hour=target.split(":")[0], minute=target.split(":")[1], second=0, microsecond=0)
             if now > target:
                 target += timedelta(days=1)
             future_targets.append(target)
