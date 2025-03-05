@@ -82,7 +82,7 @@ async def send_message():
         if len(username) > 1:
             for i in range(1, len(username)):
                 text = f"{text}, @{username[i]}"
-        await bot.send_message(chat_id=chat_id, text=f"Пара некст - {db.para()}.\nСсылка - {db.get_url()}.")
+        await bot.send_message(chat_id=chat_id, text=f"Пара некст - {db.para()}.\nСсылка - {(db.get_url()) if db.para() != "Пары нет" else None}.")
         await bot.send_message(chat_id=chat_id, text=f"Пинг: {text}")
         print(f"Сообщение отправлено в {datetime.now().strftime('%H:%M:%S')}")
     except Exception as e:
