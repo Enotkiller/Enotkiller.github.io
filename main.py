@@ -50,14 +50,34 @@ async def otmena_pari(message: Message):
         await message.answer(text, parse_mode=ParseMode.HTML)
 
 @dp.message(Command("test"))
-async def test(message : Message):
+async def test(message : Message, command: CommandObject):
+    pass
+
+@dp.message(Command("whping"))
+async def test(message : Message, command: CommandObject):
+    args = command.args
     db.read_file()
-    print(db.all)
-    print(message.chat.id)
-    print(message.chat.active_usernames)
+    db.wh_arg = True
+    asyncio.create_task(tuzyara2(message, args))
+    await asyncio.sleep(5)
+    db.wh_arg = False
+
+async def tuzyara2(message : Message, args):
+    while db.wh_arg:
+        await message.answer(f"@{args} - пингатуло?")
+        await asyncio.sleep(0.3)
+@dp.message(Command("testping"))
+async def testping(message : Message):
+    db.read_file()
+    text = "@" + db.username[0]
+    if len(db.username) > 1:
+        for i in range(1, len(db.username)):
+            text = f"{text}, @{db.username[i]}"
+    await message.reply(text)
 @dp.message(Command("pingme"))
 async def pingme(message : Message):
     db.ping(message)
+
 @dp.message(Command("pingwho"))
 async def pingwho(message : Message):
     db.read_file()
@@ -69,22 +89,26 @@ async def pingwho(message : Message):
             for i in range(1, len(db.username)):
                 text = f"{text}, {db.username[i]}"
         await message.reply(text)
+
 @dp.message(Command("delete"))
 async def delete(message : Message):
     if message.from_user.id == idd.get(1) or idd.get(2):
         with open("ping.txt", "w") as f:
             pass
+
 @dp.message(Command("new"))
 async def new(message : Message, command: CommandObject):
     args = command.args
     print(args)
     with open("ping.txt", "w") as file:
         file.write(str(args))
+
 @dp.message(Command("last"))
 async def last(message : Message):
     if message.from_user.id == idd.get(1) or idd.get(2):
         with open("ping.txt", "r") as file:
             await bot.send_message(chat_id=test_id, text=f"last\n{file.read()}")
+
 async def send_message():
     try:
         db.read_file()
@@ -124,8 +148,10 @@ async def scheduler(target_times: list):
 
 async def on_startup():
     asyncio.create_task(scheduler(["08:28", "09:58", "11:58", "13:25"]))
+
 async def main():
     await on_startup()
     await dp.start_polling(bot)
+
 if __name__ == "__main__":
     asyncio.run(main())

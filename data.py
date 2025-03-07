@@ -85,6 +85,7 @@ class data:
         self.id = []
         self.all = []
         self.username = []
+        self.wh_arg = False
     def read_file(self):
         self.all = []
         self.id = []
