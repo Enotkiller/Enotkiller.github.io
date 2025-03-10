@@ -66,6 +66,7 @@ async def tuzyara2(message : Message, args):
     while db.wh_arg:
         await message.answer(f"@{args} - пингатуло?")
         await asyncio.sleep(0.3)
+
 @dp.message(Command("testping"))
 async def testping(message : Message):
     db.read_file()
@@ -74,6 +75,7 @@ async def testping(message : Message):
         for i in range(1, len(db.username)):
             text = f"{text}, @{db.username[i]}"
     await message.reply(text)
+    
 @dp.message(Command("pingme"))
 async def pingme(message : Message):
     db.ping(message)
@@ -117,7 +119,7 @@ async def send_message():
         print(username, len(username))
         if len(username) > 1:
             for i in range(1, len(username)):
-                text = f"{text}, @{username[i]}"
+                text = f"{text} @{username[i]}"
         await bot.send_message(chat_id=chat_id, text=f"Пара некст - {db.para()}.\nСсылка - {(db.get_url()) if db.para() != "Пары нет" else None}.")
         await bot.send_message(chat_id=chat_id, text=f"Пинг: {text}")
         print(f"Сообщение отправлено в {datetime.now().strftime('%H:%M:%S')}")
