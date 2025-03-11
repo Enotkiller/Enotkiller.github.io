@@ -39,7 +39,7 @@ async def papa(message: Message):
     await message.answer("Нету у тебя папы.")
 
 @dp.message(Command("mama"))
-async def papa(message: Message):
+async def mama(message: Message):
     await message.answer("Нету у тебя мамы.")
 
 @dp.message(Command("otmena"))
