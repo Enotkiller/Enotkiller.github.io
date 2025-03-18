@@ -33,6 +33,8 @@ async def cmd_start(message: Message, command: CommandObject):
         await message.answer(f"{args[0]} Парой будет {db.para(now_p=int(args[0]))}.")
     elif args[0].lower() == "all":
         await message.answer(f"{days[db.data_weekly() - 1]}\n1: {db.para(1)}\n2: {db.para(2)}\n3: {db.para(3)}\n4: {db.para(4)}")
+    elif args[0].lower() == "next":
+        await message.answer(f"{days[db.data_weekly() - 1]}\n1: {db.para(1, 1)}\n2: {db.para(2, 1)}\n3: {db.para(3, 1)}\n4: {db.para(4, 1)}")
 
 @dp.message(Command("papa"))
 async def papa(message: Message):

@@ -145,12 +145,12 @@ class data:
         self.otmena_mass = [1, self.quest() if self.quest() > 0 else self.quest() * -1, 0, date_now().date_return()]
     def data_weekly(self):
         return date_now().date_return()
-    def para(self, now_p = None):
+    def para(self, now_p = None, x = 0):
         if now_p != None:
             now = now_p
         else:
             now = date_now().quest_return(date_now().time_return())
-        return date_now().para_return(self.data_weekly(), now, self.cal, date_now().full_date_return(self.now, self.now_day, self.now_mounth))
+        return date_now().para_return(self.data_weekly() + x, now, self.cal, date_now().full_date_return(self.now, self.now_day, self.now_mounth))
     def peremena(self):
         return date_now().perema_now_retuen(date_now().quest_return(date_now().time_return()))
     def time(self):
