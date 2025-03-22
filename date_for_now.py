@@ -83,4 +83,4 @@ class date_now:
             return "Выходные"
 
 if __name__ == '__main__':
-    pass
+    print(date_now().date_return())
