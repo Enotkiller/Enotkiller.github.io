@@ -165,7 +165,4 @@ class data:
 if __name__ == '__main__':
     db = data()
     db.start()
-    db.read_file()
-    print(db.all)
-    print(db.id)
-    print(db.username)
+    print(db.data_weekly())

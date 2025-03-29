@@ -112,45 +112,41 @@ async def last(message : Message):
             await bot.send_message(chat_id=test_id, text=f"last\n{file.read()}")
 
 async def send_message():
-    try:
-        db.read_file()
-        username = db.username
-        text = "@" + username[0]
-        print(username, len(username))
-        if len(username) > 1:
-            for i in range(1, len(username)):
-                text = f"{text} @{username[i]}"
-        await bot.send_message(chat_id=chat_id, text=f"Пара некст - {db.para()}.\nСсылка - {(db.get_url()) if db.para() != "Пары нет" else None}.")
-        await bot.send_message(chat_id=chat_id, text=f"Пинг: {text}")
-        print(f"Сообщение отправлено в {datetime.now().strftime('%H:%M:%S')}")
-    except Exception as e:
-        print(f"Ошибка при отправке сообщения: {e}")
-
+    if not db.data_weekly() in [6, 7]:
+        try:
+            db.read_file()
+            username = db.username
+            text = "@" + username[0]
+            print(username, len(username))
+            if len(username) > 1:
+                for i in range(1, len(username)):
+                    text = f"{text} @{username[i]}"
+            await bot.send_message(chat_id=chat_id, text=f"Пара некст - {db.para()}.\nСсылка - {(db.get_url()) if db.para() != "Пары нет" else None}.")
+            await bot.send_message(chat_id=chat_id, text=f"Пинг: {text}")
+            print(f"Сообщение отправлено в {datetime.now().strftime('%H:%M:%S')}")
+        except Exception as e:
+            print(f"Ошибка при отправке сообщения: {e}")
 async def scheduler(target_times: list):
-    if db.data_weekly() in [1, 2, 3, 4, 5]:
-        utc_plus_2 = ZoneInfo("Europe/Kiev")
-        while True:
-            now = datetime.now(utc_plus_2)
-            future_targets = []
-            for time_str in target_times:
-                target_hour, target_minute = map(int, time_str.split(":"))
-                target = now.replace(
-                    hour=target_hour,
-                    minute=target_minute,
-                    second=0,
-                    microsecond=0
-                )
-                if now > target:
-                    target += timedelta(days=1)
-                future_targets.append(target)
-            next_target = min(future_targets)
-            wait_seconds = (next_target - now).total_seconds()
-            print(f"Ожидание до {next_target.strftime('%H:%M')} UTC+2 ({wait_seconds:.0f} секунд)")
-            await asyncio.sleep(wait_seconds)
-            await send_message()
-    else:
-        time = 24.00 - db.time_float()
-        await asyncio.sleep(int((time + 24.00) * 100) * 60)
+    utc_plus_2 = ZoneInfo("Europe/Kiev")
+    while True:
+        now = datetime.now(utc_plus_2)
+        future_targets = []
+        for time_str in target_times:
+            target_hour, target_minute = map(int, time_str.split(":"))
+            target = now.replace(
+                hour=target_hour,
+                minute=target_minute,
+                second=0,
+                microsecond=0
+            )
+            if now > target:
+                target += timedelta(days=1)
+            future_targets.append(target)
+        next_target = min(future_targets)
+        wait_seconds = (next_target - now).total_seconds()
+        print(f"Ожидание до {next_target.strftime('%H:%M')} UTC+2 ({wait_seconds:.0f} секунд)")
+        await asyncio.sleep(wait_seconds)
+        await send_message()
 async def on_startup():
     asyncio.create_task(scheduler(["08:28", "09:58", "11:58", "13:25"]))
 
