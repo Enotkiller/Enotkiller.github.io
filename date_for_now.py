@@ -13,7 +13,7 @@ class date_now:
         now = _now
         for i in range(mounth - cogda_mounth + 1):
             for j in range(1, calendar.monthrange(year, i + cogda_mounth)[1] + 1):
-                if i == 0 and j <= 9:
+                if i == 0 and j <= cogda_day - 1:
                     pass
                 else:
                     if self.date_for_weekly(cogda_mounth + i, j) == 1:
