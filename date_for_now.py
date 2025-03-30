@@ -56,7 +56,7 @@ class date_now:
                 return -4
             else:
                 return 4
-    def perema_now_retuen(self, quest):
+    def perema_now_return(self, quest):
         if quest < 0:
             return True
         else:
