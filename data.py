@@ -76,8 +76,7 @@ class data:
         }
         self.data =lambda : int(datetime.datetime.now().strftime("%d"))
         self.otmena_mass = [0, 0, 1, 0]
-        self.x = 2
-        # это на сколько увиличивается время, то есть если у вас 2 часа дня а x тоже 2 то тогда скажет что сейчас 4 часа дня, это надо для того что бы когда бот находится не в украине а в калифорнии как у меня, но так как в калифорнии на 2 часа меньше чем в укр, то время надо увиличить на 2.
+
         self.now = 1
         self.now_day = 10
         self.now_mounth = 2
@@ -150,7 +149,10 @@ class data:
             now = now_p
         else:
             now = date_now().quest_return(date_now().time_return())
-        return date_now().para_return(self.data_weekly() + x, now, self.cal, date_now().full_date_return(self.now, self.now_day, self.now_mounth))
+        _x = self.data_weekly() + x
+        if _x > 7:
+            _x -= 7
+        return date_now().para_return(_x, now, self.cal, date_now().full_date_return(self.now, self.now_day, self.now_mounth))
     def peremena(self):
         return date_now().perema_now_retuen(date_now().quest_return(date_now().time_return()))
     def time(self):
