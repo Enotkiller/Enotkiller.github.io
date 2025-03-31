@@ -77,7 +77,7 @@ class data:
         self.data =lambda : int(datetime.datetime.now().strftime("%d"))
         self.otmena_mass = [0, 0, 1, 0]
 
-        self.now = 1
+        self.now = 0
         self.now_day = 10
         self.now_mounth = 2
         # пишите дату в now_day и now_mounth, а в now пишите какой тип недели в ту дату которую вы записали. 1 = числитель, 0 = знаменатель.
