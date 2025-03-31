@@ -154,7 +154,7 @@ class data:
             _x -= 7
         return date_now().para_return(_x, now, self.cal, date_now().full_date_return(self.now, self.now_day, self.now_mounth))
     def peremena(self):
-        return date_now().perema_now_return(date_now().quest_return(date_now().time_return()))
+        return date_now().perema_now_return(int(date_now().quest_return(date_now().time_return())))
     def time(self):
         return date_now().time_return()
     def quest(self):
