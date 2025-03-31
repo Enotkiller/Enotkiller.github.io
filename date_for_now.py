@@ -65,7 +65,7 @@ class date_now:
     def para_return(self, data, quest, cal, full_date):
 
         parameters = None
-        if data <= 5:
+        if data <= 5 and quest != 0:
             for i in range(1, 4 + 1):
                 if quest == i or quest == i * -1:
                     if full_date == 1:
