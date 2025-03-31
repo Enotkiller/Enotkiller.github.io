@@ -30,7 +30,7 @@ class date_now:
         return date.isoweekday()
     def time_return(self):
         utc_now = datetime.datetime.now(datetime.timezone.utc)
-        utc_plus_2 = utc_now + datetime.timedelta(hours=1)
+        utc_plus_2 = utc_now + datetime.timedelta(hours=3)
         time = utc_plus_2.strftime("%H:%M")
         return time
     def quest_return(self, _time):
@@ -56,6 +56,7 @@ class date_now:
                 return -4
             else:
                 return 4
+        return 0
     def perema_now_return(self, quest):
         if quest < 0:
             return True
@@ -83,4 +84,4 @@ class date_now:
             return "Выходные"
 
 if __name__ == '__main__':
-    print(date_now().date_return())
+    print(date_now().time_return())
