@@ -30,7 +30,7 @@ class date_now:
         return date.isoweekday()
     def time_return(self):
         utc_now = datetime.datetime.now(datetime.timezone.utc)
-        utc_plus_2 = utc_now + datetime.timedelta(hours=2)
+        utc_plus_2 = utc_now + datetime.timedelta(hours=1)
         time = utc_plus_2.strftime("%H:%M")
         return time
     def quest_return(self, _time):
