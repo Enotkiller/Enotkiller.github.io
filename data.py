@@ -31,7 +31,7 @@ class data:
                 1.5 : None,
                 2 : "Всемирная история",
                 2.5 : "Химия",
-                3 : "Математика",
+                3 : "Математика 2",
                 3.5 : "Зарубежная литература",
                 4 : None,
                 4.5 : None
@@ -65,6 +65,7 @@ class data:
             "Физра" : "https://meet.google.com/mxt-wvmr-gny",
             "Английский" : "1 Группа: https://meet.google.com/svs-snwo-tfm\n2 Группа: https://meet.google.com/hdq-zamk-pka",
             "Математика" : "https://us02web.zoom.us/j/84351065107?pwd=WOrdR7On7gbcrPynf178H0A9FW3M3k.1",
+            "Математика 2" : "https://us02web.zoom.us/j/82397912977?pwd=K4gsdv67MXXecOooJpmazT7p24RdS9.1#success",
             "Зарубежная литература" : "https://meet.google.com/mnx-uxwk-wgo",
             "История Украины" : "https://meet.google.com/zww-totu-kva",
             "География" : "https://meet.google.com/gyc-nwne-nvi",
