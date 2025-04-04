@@ -4,22 +4,26 @@ from aiogram.types import Message
 from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandObject
 import asyncio
-import System
+from .System import system
 from zoneinfo import ZoneInfo
 
-dp = Dispatcher()
 
-class bot_aiogram(System.system):
+class bot_aiogram(system):
     def __init__(self):
         super().__init__()
-        API_TOKEN = None
-        chat_id = None
-        test_chat_id = None
-        self.id_admin = []
+        API_TOKEN = '7652049176:AAEk6LMwxKSpzPFSa3fySdZ8PHzh69Wdhzg'
+        self.chat_id = '-1002228889442'
+        self.test_chat_id = '-1002419689146'
+        self.id_admin = [1528266799, 1522348807]
         self.bot = Bot(token = API_TOKEN)
+        self.dp = Dispatcher(bot=self.bot)
         self.days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"]
 
-    @dp.message(Command("para"))
+        self.dp.message.register(self.send_pair, Command("para"))
+        self.dp.message.register(self.otmena_pair, Command("otmena"))
+        self.dp.message.register(self.pingme, Command("pingme"))
+        self.dp.message.register(self.pingwho, Command("pingwho"))
+
     async def send_pair(self, message: Message, command: CommandObject):
         """
         Отправляет какая сейчас пара, время, перемена или нет и ссылку на пару. Можно написать в параметры к команде all - выведет всё расписание на сегодня, и next - расписание на завтра.
@@ -35,14 +39,19 @@ class bot_aiogram(System.system):
             else:
                 await message.answer("Какие уроки челл.")
         elif args[0].lower() == "all":
-            await message.answer(
-                f"{self.days[self.get_day_weekly_now()]}\n1: {self.get_pair(1, self.get_day_weekly_now())}\n2: {self.get_pair(2, self.get_day_weekly_now())}\n3: {self.get_pair(3, self.get_day_weekly_now())}\n4: {self.get_pair(4, self.get_day_weekly_now())}")
+            try:
+                await message.answer(
+                    f"{self.days[self.get_day_weekly_now() - 1]}\n1: {self.get_pair(1, self.get_day_weekly_now())}\n2: {self.get_pair(2, self.get_day_weekly_now())}\n3: {self.get_pair(3, self.get_day_weekly_now())}\n4: {self.get_pair(4, self.get_day_weekly_now())}")
+            except:
+                pass
         elif args[0].lower() == "next":
-            await message.answer(
-                f"{self.days[self.get_day_weekly_now() + 1]}\n1: {self.get_pair(1, self.get_day_weekly_now())}\n2: {self.get_pair(2, self.get_day_weekly_now())}\n3: {self.get_pair(3, self.get_day_weekly_now())}\n4: {self.get_pair(4, self.get_day_weekly_now())}")
+            try:
+                await message.answer(
+                    f"{self.days[self.get_day_weekly_now()]}\n1: {self.get_pair(1, self.get_day_weekly_now())}\n2: {self.get_pair(2, self.get_day_weekly_now())}\n3: {self.get_pair(3, self.get_day_weekly_now())}\n4: {self.get_pair(4, self.get_day_weekly_now())}")
+            except:
+                pass
 
-    @dp.message(Command("otmena"))
-    async def otmena_pari(self, message: Message):
+    async def otmena_pair(self, message: Message):
         """
         Ставит статус отмены если ID пользователя есть в списке с ID админами.
         """
@@ -52,7 +61,6 @@ class bot_aiogram(System.system):
             text = "Параметр: <b>Отмена Пары</b> успешно поставлен!"
             await message.answer(text, parse_mode=ParseMode.HTML)
 
-    @dp.message(Command("pingme"))
     async def pingme(self, message: Message):
         """
         Добавляет в файл ping.txt, и перед парой будет пинговать. А если ещё раз использовать то удаляет.
@@ -60,7 +68,6 @@ class bot_aiogram(System.system):
 
         self.load_in_file(message.from_user.id, message.from_user.username)
 
-    @dp.message(Command("pingwho"))
     async def pingwho(self, message: Message):
         """
         Выводит всех кого будет пинговать перед парой.
@@ -137,7 +144,7 @@ class bot_aiogram(System.system):
         """
 
         await self.on_startup()
-        await dp.start_polling(self.bot)
+        await self.dp.start_polling(self.bot)
 
 if __name__ == "__main__":
     asyncio.run(bot_aiogram().start())
