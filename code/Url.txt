@@ -1,0 +1,17 @@
+{
+            "Биология" : "https://meet.google.com/eed-rtog-srd",
+            "Химия" : "https://meet.google.com/cut-rvao-zbt",
+            "Оборона Украины" : "https://meet.google.com/uqv-omtr-bwx",
+            "Физра" : "https://meet.google.com/mxt-wvmr-gny",
+            "Английский" : "1 Группа: https://meet.google.com/svs-snwo-tfm\n2 Группа: https://meet.google.com/hdq-zamk-pka",
+            "Математика" : "https://us02web.zoom.us/j/84351065107?pwd=WOrdR7On7gbcrPynf178H0A9FW3M3k.1",
+            "Математика 2" : "https://us02web.zoom.us/j/82397912977?pwd=K4gsdv67MXXecOooJpmazT7p24RdS9.1#success",
+            "Зарубежная литература" : "https://meet.google.com/mnx-uxwk-wgo",
+            "История Украины" : "https://meet.google.com/zww-totu-kva",
+            "География" : "https://meet.google.com/gyc-nwne-nvi",
+            "Физика" : "https://meet.google.com/znu-moir-atb",
+            "Информатика" : "https://meet.google.com/kwt-xdbj-kdq",
+            "Украинский язык" : "https://meet.google.com/jkz-wqku-xyh",
+            "Украинская литература" : "https://meet.google.com/nem-mhnk-ghe",
+            "Всемирная история" : "https://meet.google.com/qay-vxca-jfw"
+        }
