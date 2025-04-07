@@ -60,25 +60,25 @@ class system(base):
         time = self.get_time_float()
         if time >= 8.0 and time <= 9.49:
             if time >= 8.0 and time <= 8.30:
-                return -1
+                return int(-1)
             else:
-                return 1
+                return int(1)
         elif time >= 9.50 and time <= 11.20:
             if time >= 9.50 and time <= 9.59:
-                return -2
+                return int(-2)
             else:
-                return 2
+                return int(2)
         elif time >= 11.20 and time <= 13.20:
             if time >= 11.20 and time <= 11.59:
-                return -3
+                return int(-3)
             else:
-                return 3
+                return int(3)
         elif time >= 13.20 and time <= 14.50:
             if time >= 13.20 and time <= 13.29:
-                return -4
+                return int(-4)
             else:
-                return 4
-        return 0
+                return int(4)
+        return int(0)
 
     def get_pair_number_now_without_type(self):
         """
@@ -127,7 +127,7 @@ class system(base):
                         break
         return now
 
-    def get_pair_number_type(self, number = 0):
+    def get_pair_number_type(self, number : int = 0):
         """
         :param number: сюда результат от функции get_pair_number_now, или самому.
         :return: Если перемена то вернет True, если нет то False.
