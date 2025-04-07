@@ -16,10 +16,13 @@ class system(base):
         :return: В текстовом виде, какая сейчас пара за задаными параметрами.
         """
 
-        if number != 0 and day_week != 0 and day_week <= 5 and number <= 4 and number >= -4:
+        if number != 0 and day_week != 0 and day_week <= 5 and number <= 5 and number >= -5:
             if number < 0:
                 number = number * -1
-            return self.schedule[day_week][number]
+            if self.schedule[day_week][number] != None:
+                return self.schedule[day_week][number]
+            elif not number.is_integer():
+                return self.schedule[day_week][int(number - 0.5)]
         return None
 
     def get_pair_now(self):
@@ -170,7 +173,10 @@ class system(base):
         """
 
         pair = self.get_pair_now()
-        return self.url[pair]
+        if pair != None:
+            return self.url[pair]
+        else:
+            return None
 
     def set_cancellation_on_pair(self):
         """
