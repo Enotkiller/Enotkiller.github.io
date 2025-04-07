@@ -157,7 +157,7 @@ class system(base):
         """
 
         time = self.get_time_now()
-        return f"{str(time.hour):{str(time.minute)}}"
+        return f"{ ("0" + str(time.hour)) if int(time.hour) < 10 else str(time.hour)}:{("0" + str(time.minute)) if int(time.minute) < 10 else str(time.minute)}"
 
     def get_time_float(self):
         """
