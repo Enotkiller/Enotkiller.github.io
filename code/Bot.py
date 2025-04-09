@@ -39,7 +39,7 @@ class bot_aiogram(system):
                 await message.answer("Какие уроки челл.")
         elif args[0].lower() == "all":
             try:
-                await message.answer(f"{self.days[self.get_day_weekly_now() - 1]}\n1get_pair_for_week()(1, self.get_day_weekly_now())}\n2: {self.get_pair_for_week(2, self.get_day_weekly_now())}\n3: {self.get_pair_for_week(3, self.get_day_weekly_now())}\n4: {self.get_pair_for_week(4, self.get_day_weekly_now())}")
+                await message.answer(f"{self.days[self.get_day_weekly_now() - 1]}\n1: {self.get_pair_for_week(1, self.get_day_weekly_now())}\n2: {self.get_pair_for_week(2, self.get_day_weekly_now())}\n3: {self.get_pair_for_week(3, self.get_day_weekly_now())}\n4: {self.get_pair_for_week(4, self.get_day_weekly_now())}")
             except:
                 pass
         elif args[0].lower() == "next":
