@@ -44,7 +44,7 @@ class bot_aiogram(system):
                 pass
         elif args[0].lower() == "next":
             try:
-                await message.answer(f"{self.days[self.get_day_weekly_now()]}\n1: {self.get_pair_for_week(1, self.get_day_weekly_now())}\n2: {self.get_pair_for_week(2, self.get_day_weekly_now())}\n3: {self.get_pair_for_week(3, self.get_day_weekly_now())}\n4: {self.get_pair_for_week(4, self.get_day_weekly_now())}")
+                await message.answer(f"{self.days[self.get_day_weekly_now()]}\n1: {self.get_pair_for_week(1, self.get_day_weekly_now() + 1)}\n2: {self.get_pair_for_week(2, self.get_day_weekly_now() + 1)}\n3: {self.get_pair_for_week(3, self.get_day_weekly_now() + 1)}\n4: {self.get_pair_for_week(4, self.get_day_weekly_now() + 1)}")
             except:
                 pass
 

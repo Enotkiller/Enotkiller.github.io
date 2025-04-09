@@ -82,12 +82,13 @@ class system(base):
             else:
                 return int(4)
         return int(0)
-    def get_pair_for_week(self, number, day):
-        week_type = self.get_week_type()
+
+    def get_pair_for_week(self, number: int, day: int):
+        week_type = int(self.get_week_type())
         if week_type == 0:
-            self.get_pair(number + 0.5, day)
+            return self.get_pair(number + 0.5, day)
         else:
-            self.get_pair(number, day)
+            return self.get_pair(number, day)
     def get_pair_number_now_without_type(self):
         """
         :return: Возвращает какая сейчас или будет пара без её типа.
