@@ -85,7 +85,7 @@ class bot_aiogram(system):
         Сдесь происходит отправка сообщение перед парой в чат который задан в chat_id
         """
 
-        if not self.get_day_weekly_now() in [6, 7]:
+        if not self.get_day_weekly_now() in [6, 7] and self.get_pair_now() != None:
             try:
                 self.read_file()
                 username = self.username
@@ -100,7 +100,8 @@ class bot_aiogram(system):
                 print(f"Сообщение отправлено в {datetime.now().strftime('%H:%M:%S')}")
             except Exception as e:
                 print(f"Ошибка при отправке сообщения: {e}")
-
+        elif self.get_pair_now() == None:
+            await self.bot.send_message(chat_id=self.chat_id, text="Пары нема, все расходимся.")
     async def scheduler(self, target_times: list):
         """
         Вызывает функцию send_message если сейчас время есть в списке target_times.
