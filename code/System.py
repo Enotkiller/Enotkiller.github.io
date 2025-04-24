@@ -200,14 +200,18 @@ class system(base):
         Проверяет если пара поменялась то сбрасывает все значение у "отмены пары"
         :return: Вернет True если ещё действует отмена пары, а если пара поменялась то False
         """
-        for i in range(len(self.cancellation)):
-            if self.cancellation[i][0] == self.get_pair_number_now_without_type() and self.cancellation[i][1] == self.get_day_weekly_now():
-                return True
+        delete = []
         for i in range(len(self.cancellation)):
             cancel = self.cancellation[i]
             if cancel[1] is self.get_day_weekly_now():
                 if cancel[0] < self.get_pair_number_now_without_type():
-                    self.cancellation.pop(i)
+                    delete.append(self.cancellation[i])
             elif cancel[1] < self.get_day_weekly_now():
-                self.cancellation.pop(i)
+                delete.append(self.cancellation[i])
+        for i in delete:
+            self.cancellation.pop(self.cancellation.index(i))
+
+        for i in range(len(self.cancellation)):
+            if self.cancellation[i][0] == self.get_pair_number_now_without_type() and self.cancellation[i][1] == self.get_day_weekly_now():
+                return True
         return False
