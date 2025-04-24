@@ -48,13 +48,32 @@ class bot_aiogram(system):
             except:
                 pass
 
-    async def otmena_pair(self, message: Message):
+    async def otmena_pair(self, message: Message, command: CommandObject):
         """
         Ставит статус отмены если ID пользователя есть в списке с ID админами.
         """
+        mass = None
+        mass_2 = []
+        split_str = ""
+        text = command.args
+        if text is not None:
+            if "," in text:
+                split_str += ","
+            if " " in text:
+                split_str += " "
 
+            for i in split_str:
+                if i == split_str[0]:
+                    mass = text.split(i)
+                else:
+                   for j in mass:
+                        mass_2.append((j.split(i)[0]) if j.split(i)[0] != '' else (j.split(i)[1 ]))
+        mass_2 = list(map(int, mass_2))
         if message.from_user.id in self.id_admin:
-            self.set_cancellation_on_pair()
+            if command.args is None:
+                self.set_cancellation_on_pair()
+            else:
+                self.set_cancellation_on_pair(mass_2)
             text = "Параметр: <b>Отмена Пары</b> успешно поставлен!"
             await message.answer(text, parse_mode=ParseMode.HTML)
 
@@ -85,7 +104,7 @@ class bot_aiogram(system):
         Сдесь происходит отправка сообщение перед парой в чат который задан в chat_id
         """
 
-        if not self.get_day_weekly_now() in [6, 7] and not self.get_pair_now() is None:
+        if not self.get_day_weekly_now() in [6, 7] and not self.get_pair_now() is None and self.get_cancellation() is True:
             try:
                 self.read_file()
                 username = self.username
@@ -102,6 +121,7 @@ class bot_aiogram(system):
                 print(f"Ошибка при отправке сообщения: {e}")
         elif self.get_pair_now() is None:
             await self.bot.send_message(chat_id=self.chat_id, text="Пары нема, все расходимся.")
+
     async def scheduler(self, target_times: list):
         """
         Вызывает функцию send_message если сейчас время есть в списке target_times.

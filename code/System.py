@@ -6,7 +6,7 @@ from zoneinfo import ZoneInfo
 class system(base):
     def __init__(self):
         super().__init__()
-        self.cancellation = [0, 0, 0]
+        self.cancellation = []
 
     def get_pair(self, number = 0, day_week = 0):
         """
@@ -89,6 +89,7 @@ class system(base):
             return self.get_pair(number + 0.5, day)
         else:
             return self.get_pair(number, day)
+
     def get_pair_number_now_without_type(self):
         """
         :return: Возвращает какая сейчас или будет пара без её типа.
@@ -184,21 +185,29 @@ class system(base):
         else:
             return None
 
-    def set_cancellation_on_pair(self):
+    def set_cancellation_on_pair(self, mass : list = None):
         """
         Ставит значение "отмены пары" на 1
         """
-
-        self.cancellation = [1, self.get_pair_number_now_without_type(), self.get_day_weekly_now()]
+        if mass is None:
+            self.cancellation.append([self.get_pair_number_now_without_type(), self.get_day_weekly_now()])
+        else:
+            for i in mass:
+                self.cancellation.append([i, self.get_day_weekly_now()])
 
     def get_cancellation(self):
         """
         Проверяет если пара поменялась то сбрасывает все значение у "отмены пары"
         :return: Вернет True если ещё действует отмена пары, а если пара поменялась то False
         """
-
-        if self.cancellation[1] == self.get_pair_number_now_without_type() and self.cancellation[2] == self.get_day_weekly_now():
-            return True
-        else:
-            self.cancellation = [0, 0, 0]
-            return False
+        for i in range(len(self.cancellation)):
+            if self.cancellation[i][0] == self.get_pair_number_now_without_type() and self.cancellation[i][1] == self.get_day_weekly_now():
+                return True
+        for i in range(len(self.cancellation)):
+            cancel = self.cancellation[i]
+            if cancel[1] is self.get_day_weekly_now():
+                if cancel[0] < self.get_pair_number_now_without_type():
+                    self.cancellation.pop(i)
+            elif cancel[1] < self.get_day_weekly_now():
+                self.cancellation.pop(i)
+        return False
