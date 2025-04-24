@@ -104,7 +104,7 @@ class bot_aiogram(system):
         Сдесь происходит отправка сообщение перед парой в чат который задан в chat_id
         """
 
-        if not self.get_day_weekly_now() in [6, 7] and not self.get_pair_now() is None and self.get_cancellation() is True:
+        if not self.get_day_weekly_now() in [6, 7] and not self.get_pair_now() is None and self.get_cancellation() is False:
             try:
                 self.read_file()
                 username = self.username
