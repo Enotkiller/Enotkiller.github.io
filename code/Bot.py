@@ -119,7 +119,7 @@ class bot_aiogram(system):
                 print(f"Сообщение отправлено в {datetime.now().strftime('%H:%M:%S')}")
             except Exception as e:
                 print(f"Ошибка при отправке сообщения: {e}")
-        elif self.get_pair_now() is None:
+        elif self.get_pair_now() is None and not self.get_day_weekly_now() in [6, 7]:
             await self.bot.send_message(chat_id=self.chat_id, text="Пары нема, все расходимся.")
 
     async def scheduler(self, target_times: list):
