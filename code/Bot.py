@@ -29,7 +29,7 @@ class bot_aiogram(system):
         Отправляет какая сейчас пара, время, перемена или нет и ссылку на пару. Можно написать в параметры к команде all - выведет всё расписание на сегодня, и next - расписание на завтра.
         :param command: Сдесь параметры для функции.
         """
-
+        await self.debug()
         args = (command.args.split()) if command.args != None else (command.args)
         if args == None:
             print(message.from_user.username, message.from_user.id)
@@ -99,11 +99,14 @@ class bot_aiogram(system):
                     text = f"{text}, {self.username[i]}"
             await message.reply(text)
 
+    async def debug(self):
+        await self.bot.send_message(chat_id=self.test_chat_id, text=f"{self.cancellation = }")
+
     async def send_message(self):
         """
         Сдесь происходит отправка сообщение перед парой в чат который задан в chat_id
         """
-
+        await self.debug()
         if not self.get_day_weekly_now() in [6, 7] and not self.get_pair_now() is None and self.get_cancellation() is False:
             try:
                 self.read_file()
