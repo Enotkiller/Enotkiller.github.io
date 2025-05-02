@@ -56,7 +56,8 @@ class bot_aiogram(system):
         mass_2 = []
         split_str = ""
         text = command.args
-        if text is not None:
+        print(f"{text =}")
+        if text != None:
             if "," in text:
                 split_str += ","
             if " " in text:
@@ -67,8 +68,9 @@ class bot_aiogram(system):
                     mass = text.split(i)
                 else:
                    for j in mass:
-                        mass_2.append((j.split(i)[0]) if j.split(i)[0] != '' else (j.split(i)[1 ]))
+                        mass_2.append((j.split(i)[0]) if j.split(i)[0] != '' else (j.split(i)[1]))
         mass_2 = list(map(int, mass_2))
+        print(f"{mass = } {mass_2 = } {split_str = } {text = }")
         if message.from_user.id in self.id_admin:
             if command.args is None:
                 self.set_cancellation_on_pair()
