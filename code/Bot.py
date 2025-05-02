@@ -34,7 +34,7 @@ class bot_aiogram(system):
         if args == None:
             print(message.from_user.username, message.from_user.id)
             if self.get_day_weekly_now() <= 5 and self.get_time_float() <= 14.50:
-                await message.answer(f"{self.days[self.get_day_weekly_now()]}\nТекущее время: {self.get_time_str()}\n{"Текущая" if not self.get_pair_number_type(self.get_pair_number_now()) else "Будет"} пара: {self.get_pair_now()}\nСтатус: {"Отпустили" if self.get_cancellation() == True else ("Перемена" if self.get_pair_number_type(self.get_pair_number_now()) else "Идёт")}\nСсылка: {self.get_url_pair()}")
+                await message.answer(f"{self.days[self.get_day_weekly_now()]}\nТекущее время: {self.get_time_str()}\n{"Текущая" if not self.get_pair_number_type(self.get_pair_number_now()) else "Будет"} пара: {self.get_pair_now()}\nСтатус: {"Отпустили" if self.get_cancellation() == True else "Перемена" if self.get_pair_number_type(self.get_pair_number_now()) else "Идёт"}\nСсылка: {self.get_url_pair()}")
             else:
                 await message.answer("Какие уроки челл.")
         elif args[0].lower() == "all":
