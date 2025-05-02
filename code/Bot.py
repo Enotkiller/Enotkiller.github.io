@@ -29,8 +29,8 @@ class bot_aiogram(system):
         Отправляет какая сейчас пара, время, перемена или нет и ссылку на пару. Можно написать в параметры к команде all - выведет всё расписание на сегодня, и next - расписание на завтра.
         :param command: Сдесь параметры для функции.
         """
-        await self.debug()
         args = (command.args.split()) if command.args != None else (command.args)
+        print(f"{args = }")
         if args == None:
             print(message.from_user.username, message.from_user.id)
             if self.get_day_weekly_now() <= 5 and self.get_time_float() <= 14.50:
@@ -47,6 +47,7 @@ class bot_aiogram(system):
                 await message.answer(f"{self.days[self.get_day_weekly_now()]}\n1: {self.get_pair_for_week(1, self.get_day_weekly_now() + 1)}\n2: {self.get_pair_for_week(2, self.get_day_weekly_now() + 1)}\n3: {self.get_pair_for_week(3, self.get_day_weekly_now() + 1)}\n4: {self.get_pair_for_week(4, self.get_day_weekly_now() + 1)}")
             except:
                 pass
+        await self.debug()
 
     async def otmena_pair(self, message: Message, command: CommandObject):
         """
