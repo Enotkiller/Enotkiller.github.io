@@ -181,7 +181,8 @@ class system(base):
 
         pair = self.get_pair_now()
         if pair != None:
-            return self.url[pair]
+            if pair in self.url:
+                return self.url[pair]
         else:
             return None
 
