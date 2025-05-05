@@ -183,8 +183,7 @@ class system(base):
         if pair != None:
             if pair in self.url:
                 return self.url[pair]
-        else:
-            return None
+        return None
 
     def set_cancellation_on_pair(self, mass : list = None):
         """
