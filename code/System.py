@@ -192,7 +192,8 @@ class system(base):
         if mass is None:
             self.cancellation.append([self.get_pair_number_now_without_type(), self.get_day_weekly_now()])
         else:
-            for i in mass:
+
+            for i in mass if type(mass) != int else [mass]:
                 self.cancellation.append([i, self.get_day_weekly_now()])
 
     def get_cancellation(self):
