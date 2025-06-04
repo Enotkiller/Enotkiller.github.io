@@ -54,7 +54,10 @@ class base:
                             q.append(j)
                     if q != []:
                         with open("ping.txt", "a") as f:
-                            f.write(f"{"\n"if len(self.all) != 0 else ""}{q[0]} {q[1]}")
+                            if len(self.all) != 0:
+                                f.write(f"\n{q[0]} {q[1]}")
+                            else:
+                                f.write(f"{q[0]} {q[1]}")
                         self.username.append(q[1])
                         self.id.append(q[0])
                         self.all.append(q)

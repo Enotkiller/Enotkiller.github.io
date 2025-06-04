@@ -164,7 +164,7 @@ class system(base):
         """
 
         time = self.get_time_now()
-        return f"{str(str("0") + str(time.hour)) if int(time.hour) < 10 else str(time.hour)}:{str(str("0") + str(time.minute)) if int(time.minute) < 10 else str(time.minute)}"
+        return f"{(str('0') + str(time.hour)) if int(time.hour) < 10 else str(time.hour)}:{(str('0') + str(time.minute)) if int(time.minute) < 10 else str(time.minute)}"
 
     def get_time_float(self):
         """
