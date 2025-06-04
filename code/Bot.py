@@ -127,7 +127,8 @@ class bot_aiogram(system):
                     for i in range(1, len(username)):
                         text = f"{text} @{username[i]}"
                 await self.bot.send_message(chat_id=self.chat_id,
-                                       text=f"Пара некст - {self.get_pair_now()}.\nСсылка - {(self.get_url_pair()) if self.get_pair_now() != str("Пары нет") else None}.")
+                                       text=f"""Пара некст - {self.get_pair_now()}.
+Ссылка - {(self.get_url_pair()) if self.get_pair_now() != str("Пары нет") else None}.""")
                 await self.bot.send_message(chat_id=self.chat_id, text=f"Пинг: {text}")
                 print(f"Сообщение отправлено в {datetime.now().strftime('%H:%M:%S')}")
             except Exception as e:
