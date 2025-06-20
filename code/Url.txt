@@ -5,7 +5,7 @@
             "Физра" : "https://meet.google.com/mxt-wvmr-gny",
             "Английский" : "1 Группа: https://meet.google.com/svs-snwo-tfm\n2 Группа: https://meet.google.com/hdq-zamk-pka",
             "Математика" : "https://us02web.zoom.us/j/84351065107?pwd=WOrdR7On7gbcrPynf178H0A9FW3M3k.1",
-            "Математика 2" : "https://us02web.zoom.us/j/82397912977?pwd=K4gsdv67MXXecOooJpmazT7p24RdS9.1#success",
+            "Математика 2" : "https://us02web.zoom.us/j/82397912977?pwd=K4gsdv67MXXecOooJpmazT7p24RdS9.1",
             "Зарубежная литература" : "https://meet.google.com/mnx-uxwk-wgo",
             "История Украины" : "https://meet.google.com/zww-totu-kva",
             "География" : "https://meet.google.com/gyc-nwne-nvi",
