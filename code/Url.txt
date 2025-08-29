@@ -1,7 +1,7 @@
 {
-            "Биология" : "https://meet.google.com/eed-rtog-srd",
+            "Биология" : "https://meet.google.com/psv-heyo-yvv",
             "Химия" : "https://meet.google.com/cut-rvao-zbt",
-            "Оборона Украины" : "https://meet.google.com/uqv-omtr-bwx",
+            "Оборона Украины" : "https://meet.google.com/mhc-kskb-aug",
             "Физра" : "https://meet.google.com/mxt-wvmr-gny",
             "Английский" : "1 Группа: https://meet.google.com/svs-snwo-tfm\n2 Группа: https://meet.google.com/hdq-zamk-pka",
             "Математика" : "https://us02web.zoom.us/j/84351065107?pwd=WOrdR7On7gbcrPynf178H0A9FW3M3k.1",
@@ -13,5 +13,8 @@
             "Информатика" : "https://meet.google.com/kwt-xdbj-kdq",
             "Украинский язык" : "https://meet.google.com/jkz-wqku-xyh",
             "Украинская литература" : "https://meet.google.com/nem-mhnk-ghe",
-            "Всемирная история" : "https://meet.google.com/qay-vxca-jfw"
+            "Всемирная история" : "https://meet.google.com/qay-vxca-jfw",
+            "Основы схемотехники" : "https://meet.google.com/bjv-wfho-ykr",
+            "Теория електрических и магнитных тел" : "https://meet.google.com/ynf-rvsz-qce",
+
         }
