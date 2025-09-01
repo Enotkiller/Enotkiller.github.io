@@ -4,7 +4,7 @@ from aiogram.types import Message
 from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandObject
 import asyncio
-from .System import system
+from System import system
 from zoneinfo import ZoneInfo
 
 
