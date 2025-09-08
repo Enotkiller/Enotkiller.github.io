@@ -109,7 +109,7 @@ class system(base):
         else:
             return pair_number if not self.get_pair_number_type(self.get_pair_number_now()) else pair_number * -1
 
-    def get_week_type(self, now = 0, day = 1, mounth = 9, year = 2025, _mounth = None, _day = None):
+    def get_week_type(self, now = 1, day = 1, mounth = 9, year = 2025, _mounth = None, _day = None):
         """
         Вычисляет тип недели за счет того что считает от заданой даты до нынешней понедельники, и если попадётся понедельник то поменяет now на обратное значение.
         :param now: Тип недели заданого числа.
