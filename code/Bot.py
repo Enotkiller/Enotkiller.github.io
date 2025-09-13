@@ -6,12 +6,13 @@ from aiogram.filters import Command, CommandObject
 import asyncio
 from System import system
 from zoneinfo import ZoneInfo
+import os
 
 
 class bot_aiogram(system):
     def __init__(self):
         super().__init__()
-        API_TOKEN = '7652049176:AAEk6LMwxKSpzPFSa3fySdZ8PHzh69Wdhzg'
+        API_TOKEN = os.getenv('BOT_TOKEN', '7652049176:AAEk6LMwxKSpzPFSa3fySdZ8PHzh69Wdhzg')
         self.chat_id = '-1002228889442'
         self.test_chat_id = '-1002419689146'
         self.id_admin = [1528266799, 1522348807]
@@ -110,7 +111,8 @@ class bot_aiogram(system):
             await message.reply(text)
 
     async def debug(self):
-        await self.bot.send_message(chat_id=self.test_chat_id, text=f"{self.cancellation = }")
+        # await self.bot.send_message(chat_id=self.test_chat_id, text=f"{self.cancellation = }")
+        pass
 
     async def send_message(self):
         """

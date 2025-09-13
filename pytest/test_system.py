@@ -1,7 +1,7 @@
 import pytest, sys, os
 from random import randint
 sys.path.append(r"C:\Users\Enot\PycharmProjects\ideya-pidora\code")
-import System 
+import System  # pyright: ignore[reportMissingImports]
 class TestSystem():
     def setup_method(self):
         self.system = System.system()

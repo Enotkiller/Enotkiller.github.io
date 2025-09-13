@@ -16,7 +16,7 @@ class system(base):
         :return: В текстовом виде, какая сейчас пара за задаными параметрами.
         """
 
-        if number != 0 and day_week != 0 and day_week <= 5 and number <= 5 and number >= -5:
+        if number > 0.5 and day_week != 0 and day_week <= 5 and number <= 5 and number >= -5:
             if number < 0:
                 number = number * -1
             if self.schedule[day_week][number] != None:
@@ -48,9 +48,9 @@ class system(base):
         :param day: Число месяца, типо 02 10 месяца.
         :return: Возвращает какой по счету день недели, если понедельник то 1, если вторник то 2 и так далее.
         """
-
-        if mounth != 0 and day != 0:
-            year = int(datetime.datetime.now().strftime("20%y"))
+        year = int(datetime.datetime.now().strftime("20%y"))
+        max_days_in_mounth = calendar.monthrange(year, mounth)[1]
+        if mounth > 0 and mounth < 13 and day > 0 and day < max_days_in_mounth:
             date = datetime.date(year, mounth, day)
             return date.isoweekday()
 

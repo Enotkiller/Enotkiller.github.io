@@ -16,5 +16,6 @@
             "Всемирная история" : "https://meet.google.com/qay-vxca-jfw",
             "Основы схемотехники" : "https://meet.google.com/bjv-wfho-ykr",
             "Теория електрических и магнитных тел" : "https://meet.google.com/ynf-rvsz-qce",
-            "Гражданское образование" : "https://meet.google.com/gju-khtz-szb"
+            "Гражданское образование" : "https://meet.google.com/gju-khtz-szb",
+            "Технологии (компьютерная графика)" : "https://meet.google.com/sdm-apit-akf"
         }
