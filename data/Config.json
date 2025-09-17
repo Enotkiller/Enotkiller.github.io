@@ -1,0 +1,18 @@
+{
+    "chats_id" : ["-1002228889442"],
+    "chat_log_id" : "-1002419689146",
+    "number_of_weeks_types": 2,
+    "data_week_type": {
+        "type": 1,
+        "year": 2025,
+        "month": 9,
+        "day": 1
+
+    },
+    "token" : "7652049176:AAEk6LMwxKSpzPFSa3fySdZ8PHzh69Wdhzg",
+    "redis_config": {
+        "host": "redis_service",
+        "port": 6379
+    }, 
+    "time_zone" : "Europe/Kiev"
+}

@@ -4,7 +4,7 @@ import os
 
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "code"))
 
-from Bot import bot_aiogram
+from Bot import BotСollege
 
 if __name__ == '__main__':
-    asyncio.run(bot_aiogram().start())
+    asyncio.run(BotСollege().start())

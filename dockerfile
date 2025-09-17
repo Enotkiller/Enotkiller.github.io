@@ -1,21 +1,15 @@
-# Используем официальный легкий образ Python
-FROM python:3.11-slim
+FROM python:3.13-slim
 
-# Устанавливаем рабочую директорию внутри контейнера
-WORKDIR /app
 
-# Копируем файл с зависимостями отдельно для кэширования
+RUN pip install --no-cache-dir uv
+
+# Копируем зависимости
 COPY requirements.txt .
 
-# Устанавливаем Python зависимости
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+# Устанавливаем зависимости через uv С ФЛАГОМ --system
+RUN uv pip install --system -r requirements.txt
 
-# Копируем весь код проекта в контейнер
+# Копируем код и данные
 COPY . .
 
-# Создаем директорию для файлов данных
-RUN mkdir -p /app/code
-
-# Команда для запуска бота
 CMD ["python", "main.py"]

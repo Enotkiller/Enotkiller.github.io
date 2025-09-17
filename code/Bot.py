@@ -3,147 +3,203 @@ from aiogram import Bot, Dispatcher
 from aiogram.types import Message
 from aiogram.enums import ParseMode
 from aiogram.filters import Command, CommandObject
-import asyncio
-from System import system
 from zoneinfo import ZoneInfo
-import os
+import asyncio
 
+from Debug import print_debug
+from System import System
+from DataBase import DataBase
 
-class bot_aiogram(system):
-    def __init__(self):
-        super().__init__()
-        API_TOKEN = os.getenv('BOT_TOKEN')
-        self.chat_id = '-1002228889442'
-        self.test_chat_id = '-1002419689146'
-        self.id_admin = [1528266799, 1522348807]
-        self.bot = Bot(token = API_TOKEN)
-        self.dp = Dispatcher(bot=self.bot)
+class BotСollege:
+    def __init__(self, _token = None, _debug = True):
+        """
+        
+        Инициализация бота, базы данных и системы.
+        
+        Args:
+            _token (str): Токен бота.
+            _debug (bool): Если True, то выводится в консоль сообщение.
+        """
+        
+        if _debug:
+            print_debug("Bot", "[main]Initialized.[/main]")
+        self.database: DataBase = DataBase(_debug = _debug)
+        self.system: System = System(_database = self.database, _debug = _debug)
+
         self.days = ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница"]
+        TOKEN = _token if _token else self.database.get_token()
+        self.bot = Bot(token = TOKEN)
+        self.dp = Dispatcher(bot = self.bot)
 
-        self.dp.message.register(self.send_pair, Command("para"))
-        self.dp.message.register(self.otmena_pair, Command("otmena"))
+        self.dp.message.register(self.send_lesson, Command("para"))
+        self.dp.message.register(self.cancel_lesson, Command("cancel"))
         self.dp.message.register(self.pingme, Command("pingme"))
         self.dp.message.register(self.pingwho, Command("pingwho"))
 
-    async def send_pair(self, message: Message, command: CommandObject):
+    async def send_lesson(self, message: Message, command: CommandObject):
         """
-        Отправляет какая сейчас пара, время, перемена или нет и ссылку на пару. Можно написать в параметры к команде all - выведет всё расписание на сегодня, и next - расписание на завтра.
-        :param command: Сдесь параметры для функции.
+
+        Команда - /para агрументы\n
+        Если аргументы не указаны, то выводится текущая пара.\n
+        Если аргумент all, то выводятся все пары на сегодня.\n
+        Если аргумент next, то выводятся все пары на завтра.\n
+        Если вести число то выведет пары на этот день под этим номером.\n
+
+        Args:
+            message (Message): Сообщение.
+            command (CommandObject): Аргументы.
         """
-        args = (command.args.split()) if command.args != None else (command.args)
-        print(f"{args = }")
-        if args == None:
-            print(message.from_user.username, message.from_user.id)
-            if self.get_day_weekly_now() <= 5 and self.get_time_float() <= 14.50:
-                await message.answer(f"""{self.days[self.get_day_weekly_now() - 1]}\nТекущее время: {self.get_time_str()}
-{str("Текущая") if not self.get_pair_number_type(self.get_pair_number_now()) else str("Будет")} пара: {self.get_pair_now()}
-Статус: {str("Отпустили") if self.get_cancellation() == True else 'Перемена' if self.get_pair_number_type(self.get_pair_number_now()) else str("Идёт")}
-Ссылка: {self.get_url_pair()}""")
+
+        args = command.args.split() if command.args is not None else None
+
+        print_debug("Bot", f"Send [main]lesson[/main], parameters: [main]{args if args is None else ", ".join(args)}[/main].")
+        
+        if args is None:
+            _, lesson = self.system.get_lesson_now()
+            text_lesson = f"{str("Текущая") if not self.system.recess_now() else str("Будет")} пара: {lesson}"
+            text_status = f"Статус: {str("Отпустили") if self.system.get_cancellation() == True else 'Перемена' if self.system.recess_now() else str("Идёт")}"
+            text_url = f"Ссылка: {self.system.get_url_now()}"
+            if lesson is None:
+                await message.reply(text = "На сегодня пар нет.")
+                return
+            
             else:
-                await message.answer("Какие уроки челл.")
+                await message.reply(text = f"{self.days[self.system.get_day_isoweekday_now() - 1]}\n{text_lesson}\n{text_status}\n{text_url}")
+                return
+            
         elif args[0].lower() == "all":
-            try:
-                await message.answer(f"{self.days[self.get_day_weekly_now() - 1]}\n1: {self.get_pair_for_week(1, self.get_day_weekly_now())}\n2: {self.get_pair_for_week(2, self.get_day_weekly_now())}\n3: {self.get_pair_for_week(3, self.get_day_weekly_now())}\n4: {self.get_pair_for_week(4, self.get_day_weekly_now())}")
-            except:
-                pass
-        elif args[0].lower() == "next":
-            try:
-                await message.answer(f"{self.days[self.get_day_weekly_now()]}\n1: {self.get_pair_for_week(1, self.get_day_weekly_now() + 1)}\n2: {self.get_pair_for_week(2, self.get_day_weekly_now() + 1)}\n3: {self.get_pair_for_week(3, self.get_day_weekly_now() + 1)}\n4: {self.get_pair_for_week(4, self.get_day_weekly_now() + 1)}")
-            except:
-                pass
-        await self.debug()
-
-    async def otmena_pair(self, message: Message, command: CommandObject):
-        """
-        Ставит статус отмены если ID пользователя есть в списке с ID админами.
-        """
-        mass = None
-        mass_2 = []
-        split_str = ""
-        text = command.args
-        print(f"{text =}")
-        if text != None:
-            if "," in text:
-                split_str += ","
-            if " " in text:
-                split_str += " "
-
-            for i in split_str:
-                if i == split_str[0]:
-                    mass = text.split(i)
-                else:
-                   for j in mass:
-                        mass_2.append((j.split(i)[0]) if j.split(i)[0] != '' else (j.split(i)[1]))
-        mass_2 = list(map(int, mass_2))
-        print(f"{mass = } {mass_2 = } {split_str = } {text = }")
-        if split_str == " ":
-            mass_2 = list(map(int, mass))
-        elif len(text) == 1:
-            mass_2 = int(text)
-        if message.from_user.id in self.id_admin:
-            if command.args is None:
-                self.set_cancellation_on_pair()
+            if self.system.get_day_isoweekday_now() <= 5:
+                text = ""
+                lesson_number = self.system.get_number_lesson_now()
+                for i in range(1, self.database.get_max_lesson_in_days() + 1):
+                    _, lesson = self.system.get_lesson_now(_number_lesson = int(i))
+                    if lesson:
+                        if i == lesson_number:
+                            text = f"{text}\t{i} - <b>{lesson}</b> </i>(Текущая)</i>\n"
+        
+                        else:
+                            text = f"{text}\t{i} - {lesson}\n"
+                
+                await message.reply(text = f"{self.days[self.system.get_day_isoweekday_now() - 1]}\n{text}", parse_mode = ParseMode.HTML)
+                del text, lesson
+                return
+            
             else:
-                self.set_cancellation_on_pair(mass_2)
-            text = "Параметр: <b>Отмена Пары{0}</b> успешно поставлен!".format(mass_2)
+                await message.reply(text = "Сегодня пар нет.")
+                return
+            
+        elif args[0].lower() == "next":
+            if self.system.get_day_isoweekday_now() < 5:
+                text = ""
+                for i in range(1, self.database.get_max_lesson_in_days() + 1):
+                    _, lesson = self.system.get_lesson_now(_day = self.system.get_day_isoweekday_now() + 1, _number_lesson = int(i))
+                    if lesson:
+                        text = f"{text}\t{i} - {lesson}\n"
+                
+                await message.reply(text = f"{self.days[self.system.get_day_isoweekday_now()]}\n{text}")
+                del text, lesson
+                return
+            
+            else:
+                await message.reply(text = "Завтра пар нет.")                
+                return
+            
+        elif str(args[0]).isdigit():
+            if 0 < int(args[0]) <= self.database.get_max_lesson_in_days():
+                _, lesson = self.system.get_lesson_now(_number_lesson = int(args[0]))
+                if lesson:
+                    await message.reply(text = f"{self.days[self.system.get_day_isoweekday_now() - 1]}\n\t{args[0]} - {lesson}\nСсылка: {self.system.get_url(_number_lesson = int(args[0]))}")
+        
+                else:
+                    await message.reply(text = f"{str(args[0])} пары в {self.days[self.system.get_day_isoweekday_now() - 1]} нет.")
+        
+            else:
+                await message.reply(text = "Такой пары нет.")
+            return
+        
+    async def cancel_lesson(self, message: Message, command: CommandObject):
+        """
+        Команда /cancel аргументы\n
+        Если вести число то отменится пара под этим номером на сегодня.\n
+        Если ничего не вести то отменится сейчсас пара.\n
+
+        Args:
+            message (Message): Сообщение.
+            command (CommandObject): Аргументы.
+        """
+
+        print_debug("Bot", f"Send [main]cancel[/main], parameters: [main]{command.args if command.args is not None else None}[/main].")
+        args = command.args if command.args is not None else None
+        mass = []
+        if args is None:
+            mass = str(str(args).split()).strip(", ")
+            for i in mass:
+                if i.isdigit(): 
+                    if 0 < int(i) <= self.database.get_max_lesson_in_days(): mass.append(int(i))
+
+        if args is None:
+            self.system.set_cancellation_on_lesson()
+
+        else:
+            self.system.set_cancellation_on_lesson(mass = mass)
+            text = f"Пары отменены: <b>{', '.join(mass)}</b>."
             await message.answer(text, parse_mode=ParseMode.HTML)
-        await self.debug()
+    
     async def pingme(self, message: Message):
         """
-        Добавляет в файл ping.txt, и перед парой будет пинговать. А если ещё раз использовать то удаляет.
-        """
 
-        self.load_in_file(message.from_user.id, message.from_user.username)
+        Команда /pingme\n
+        Добавляет в список пингов или удаляет.
+
+        Args:
+            message (Message): Сообщение.
+        """
+        print_debug("Bot", f"Send [main]pingme[/main].")
+        result = self.database.add_user_in_pings(username = message.from_user.username, user_id = message.from_user.id)    
+        if result:
+            await message.reply(text = "Вы были <b>добавлены</b> в список пингов.", parse_mode = ParseMode.HTML)
+
+        else:
+            await message.reply(text = "Вы ужебыли <b>удалины</b> в список пингов.", parse_mode = ParseMode.HTML)
 
     async def pingwho(self, message: Message):
         """
-        Выводит всех кого будет пинговать перед парой.
+
+        Команда /pingwho\n
+        Выводит список пингов.
+
+        Args:
+            message (Message): Сообщение.
         """
-
-        self.read_file()
-        if len(self.all) == 0:
-            await message.answer("Нет кого пинговать.")
-        else:
-            text = "Вот всё кого будет пинговать: " + self.username[0]
-            if len(self.username) > 1:
-                for i in range(1, len(self.username)):
-                    text = f"{text}, {self.username[i]}"
-            await message.reply(text)
-
-    async def debug(self):
-        # await self.bot.send_message(chat_id=self.test_chat_id, text=f"{self.cancellation = }")
-        pass
-
+        await message.reply(text = f"Вот всё кого будет пинговать: <b>{", ".join(self.database.get_all_usernames())}</b>.", parse_mode = ParseMode.HTML)
+        
     async def send_message(self):
         """
-        Сдесь происходит отправка сообщение перед парой в чат который задан в chat_id
+
+        Рассылка сообщения(какая пара будет) во все чаты, а после пингует список пингов.
+
         """
-        await self.debug()
-        if not self.get_day_weekly_now() in [6, 7] and not self.get_pair_now() is None and self.get_cancellation() is False:
-            try:
-                self.read_file()
-                username = self.username
-                text = "@" + username[0]
-                print(username, len(username))
-                if len(username) > 1:
-                    for i in range(1, len(username)):
-                        text = f"{text} @{username[i]}"
-                await self.bot.send_message(chat_id=self.chat_id,
-                                       text=f"""Пара некст - {self.get_pair_now()}.
-Ссылка - {(self.get_url_pair()) if self.get_pair_now() != str("Пары нет") else None}.""")
-                await self.bot.send_message(chat_id=self.chat_id, text=f"Пинг: {text}")
-                print(f"Сообщение отправлено в {datetime.now().strftime('%H:%M:%S')}")
-            except Exception as e:
-                print(f"Ошибка при отправке сообщения: {e}")
-        elif (self.get_pair_now() is None and not self.get_day_weekly_now() in [6, 7]) or self.get_cancellation() is True:
-            await self.bot.send_message(chat_id=self.chat_id, text="Пары нема, все расходимся.")
+        if self.system.get_day_isoweekday_now() <= 5:
+            if not self.system.get_cancellation():
+                _, lesson = self.system.get_lesson_now()
+                if lesson:
+                    for chat_id in self.database.get_chats_id():
+                        print_debug("Bot", f"Send message to [main]{chat_id}[/main].")
+                        try:
+                            await self.bot.send_message(chat_id = chat_id, text = f"Следующая пара: <b>{lesson}</b>\nСсылка: {self.system.get_url_now()}.", parse_mode = ParseMode.HTML)
+                            await self.bot.send_message(chat_id = chat_id, text = f"Пинг: {" @".join(self.database.get_all_usernames())}")
+                        
+                        except Exception as e:
+                            print_debug("Bot", "Error: [red]" + str(e) + "[/red]")
 
     async def scheduler(self, target_times: list):
         """
-        Вызывает функцию send_message если сейчас время есть в списке target_times.
-        :param target_times: Список с временем когда отпралять сообщение
-        """
 
+        Ожидание и отправляет рассылку в указанное время.
+
+        Args:
+            target_times (list): Время отправки сообщения.
+        """
         utc_plus_2 = ZoneInfo("Europe/Kiev")
         while True:
             now = datetime.now(utc_plus_2)
@@ -151,34 +207,42 @@ class bot_aiogram(system):
             for time_str in target_times:
                 target_hour, target_minute = map(int, time_str.split(":"))
                 target = now.replace(
-                    hour=target_hour,
-                    minute=target_minute,
-                    second=0,
-                    microsecond=0
+                    hour = target_hour,
+                    minute = target_minute,
+                    second = 0,
+                    microsecond = 0
                 )
                 if now > target:
                     target += timedelta(days=1)
+
                 future_targets.append(target)
+
             next_target = min(future_targets)
             wait_seconds = (next_target - now).total_seconds()
-            print(f"Ожидание до {next_target.strftime('%H:%M')} UTC+2 ({wait_seconds:.0f} секунд)")
+            print_debug("Bot", f"Ожидание до [main]{next_target.strftime('%H:%M')}[/main] UTC+2 [main]({wait_seconds:.0f}[/main] секунд).")
             await asyncio.sleep(wait_seconds)
             await self.send_message()
 
     async def on_startup(self):
         """
-        Задает список для scheduler.
-        """
+        
+        Запуск ``scheduler`` в отдельном потоке и передает время отправки рассылок.
 
-        asyncio.create_task(self.scheduler(["08:28", "09:58", "11:58", "13:25"]))
+        """
+        times_spam = []
+        for i in range(1, self.database.get_max_lesson_in_days() + 1):
+            times_spam.append(self.database.get_send_spam(number_lesson = i))
+
+        asyncio.create_task(self.scheduler(times_spam))
 
     async def start(self):
         """
-        Стартует и бота, и авто отправку сообщений.
-        """
 
+        Запуск ``on_startup`` и запуск бота.
+        
+        """
         await self.on_startup()
         await self.dp.start_polling(self.bot)
 
 if __name__ == "__main__":
-    asyncio.run(bot_aiogram().start())
+    asyncio.run(BotСollege().start())
