@@ -47,10 +47,16 @@ class System:
         
         if day_week is None or number_lesson is None: return
         if _debug:
-            print_debug("System", f"Get lesson: day: [main]{day_week}[/main], number lesson: [main]{number_lesson}[/main], type: [main]{type}[/main]")
-        if number_lesson > 0 and number_lesson <= self.database.get_max_lesson_in_days(_debug = False):    
-            ids, lessons = self.database.get_lesson_for_date(day_week, number_lesson, _debug = False)
-            return ids[type], lessons[type]
+            print_debug("System", f"Get lesson: day: [main]{day_week}[/main], number lesson: [main]{int(number_lesson)}[/main], type: [main]{type}[/main]")
+        if int(number_lesson) > 0 and int(number_lesson) <= int(self.database.get_max_lesson_in_days(_debug = False)):    
+            ids, lessons = self.database.get_lesson_for_date(day_week, int(number_lesson), _debug = False)
+           
+            if lessons and ids:           
+                lessons.reverse()
+                ids.reverse()
+                
+                return ids[type], lessons[type]
+        
         return None, None
     
     def get_lesson_for_date(self, 
@@ -83,11 +89,14 @@ class System:
         _, lessons = self.database.get_lesson_for_date(day = date, number_lesson = number_lesson, _id_lessons = ids, _debug = False)
         type = self.get_week_type(_day = day, _mounth = mounth, _year = year, _debug = False)
 
-        lessons.reverse()
-        ids.reverse()
+  
 
         if lessons and ids:
+            lessons.reverse()
+            ids.reverse()
+            
             return ids[type], lessons[type]
+        
         return None, None
     
     def get_lesson_now(self, 
@@ -106,22 +115,24 @@ class System:
             _number_lesson (int): Номер пары.
             _debug (bool): Если True, то выводится в консоль сообщение.
         Returns:
-            tuple[str, str] : id и пара или ничего.
+            tuple[str] : id и пара или ничего.
         """
 
-        if _debug:
-            print_debug("System", "Get [main]lesson now[/main].")
+        
 
         day = self.get_day_isoweekday_now(_debug = False) if _day is None else _day
-        number_lesson = self.get_lesson_number_now_without_type(_debug = False) if _number_lesson is None else _number_lesson
+        number_lesson = self.get_lesson_number_now_without_type() if _number_lesson is None else _number_lesson
         ids = self.database.get_id_lesson_for_date(day = day, number_lesson = number_lesson, _debug = False)
         _, lessons = self.database.get_lesson_for_date(day = day, number_lesson = number_lesson, _id_lessons = ids, _debug = False)
         type = self.get_week_type(_debug = False) if _type is None else _type
-        
-        lessons.reverse()
-        ids.reverse()
 
-        if lessons and ids:
+        if _debug:
+            print_debug("System", f"Get [main]lesson now[/main]. day: [main]{day}[/main], number lesson: [main]{number_lesson}[/main], type: [main]{type}[/main]")
+        
+        if lessons and ids:                    
+            lessons.reverse()
+            ids.reverse()
+
             return ids[type], lessons[type]
         
         return None, None
@@ -298,7 +309,7 @@ class System:
                 type = 0
             
 
-        return np.uint8(type)
+        return int(type)
 
     def get_lesson_type(self, lesson : int = 0, _debug: bool = True) -> bool:
         """
@@ -410,10 +421,14 @@ class System:
             np.uint8 : номер пары.
         """
 
-        if _debug:
-            print_debug("System", "Get [main]lesson number now without type[/main].")
+ 
         number_lesson = self.get_number_lesson_now()
-        return np.uint8(number_lesson if number_lesson > 0 else number_lesson * 2)
+        
+        if _debug:
+            print_debug("System", f"Get [main]lesson number now without type[/main], number lesson: [main]{number_lesson}[/main].")
+        
+        
+        return np.int8(number_lesson if number_lesson > 0 else int(number_lesson) * -1)
 
     def set_cancellation_on_lesson(self, mass : Any = None, _debug: bool = True) -> None:
         """

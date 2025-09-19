@@ -56,15 +56,15 @@ class BotСollege:
         
         if args is None:
             _, lesson = self.system.get_lesson_now()
-            text_lesson = f"{str("Текущая") if not self.system.recess_now() else str("Будет")} пара: {lesson}"
-            text_status = f"Статус: {str("Отпустили") if self.system.get_cancellation() == True else 'Перемена' if self.system.recess_now() else str("Идёт")}"
+            text_lesson = f"{str("Текущая") if not self.system.recess_now() else str("Будет")} пара: <b>{lesson}</b>."
+            text_status = f"Статус: <b>{str("Отпустили") if self.system.get_cancellation() == True else 'Перемена' if self.system.recess_now() else str("Идёт")}</b>."
             text_url = f"Ссылка: {self.system.get_url_now()}"
             if lesson is None:
-                await message.reply(text = "На сегодня пар нет.")
+                await message.answer(text = "На сегодня пар нет.")
                 return
             
             else:
-                await message.reply(text = f"{self.days[self.system.get_day_isoweekday_now() - 1]}\n{text_lesson}\n{text_status}\n{text_url}")
+                await message.answer(text = f"{self.days[self.system.get_day_isoweekday_now() - 1]}\n{text_lesson}\n{text_status}\n{text_url}", parse_mode = ParseMode.HTML)
                 return
             
         elif args[0].lower() == "all":
@@ -75,17 +75,17 @@ class BotСollege:
                     _, lesson = self.system.get_lesson_now(_number_lesson = int(i))
                     if lesson:
                         if i == lesson_number:
-                            text = f"{text}\t{i} - <b>{lesson}</b> </i>(Текущая)</i>\n"
+                            text = f"{text}\t{i} - <b>{lesson}</b> (Текущая)\n"
         
                         else:
                             text = f"{text}\t{i} - {lesson}\n"
                 
-                await message.reply(text = f"{self.days[self.system.get_day_isoweekday_now() - 1]}\n{text}", parse_mode = ParseMode.HTML)
+                await message.answer(text = f"{self.days[self.system.get_day_isoweekday_now() - 1]}\n{text}", parse_mode = ParseMode.HTML)
                 del text, lesson
                 return
             
             else:
-                await message.reply(text = "Сегодня пар нет.")
+                await message.answer(text = "Сегодня пар нет.")
                 return
             
         elif args[0].lower() == "next":
@@ -96,7 +96,7 @@ class BotСollege:
                     if lesson:
                         text = f"{text}\t{i} - {lesson}\n"
                 
-                await message.reply(text = f"{self.days[self.system.get_day_isoweekday_now()]}\n{text}")
+                await message.answer(text = f"{self.days[self.system.get_day_isoweekday_now()]}\n{text}")
                 del text, lesson
                 return
             
@@ -108,7 +108,7 @@ class BotСollege:
             if 0 < int(args[0]) <= self.database.get_max_lesson_in_days():
                 _, lesson = self.system.get_lesson_now(_number_lesson = int(args[0]))
                 if lesson:
-                    await message.reply(text = f"{self.days[self.system.get_day_isoweekday_now() - 1]}\n\t{args[0]} - {lesson}\nСсылка: {self.system.get_url(_number_lesson = int(args[0]))}")
+                    await message.answer(text = f"{self.days[self.system.get_day_isoweekday_now() - 1]}\n\t{args[0]} - {lesson}\nСсылка: {self.system.get_url(_number_lesson = int(args[0]))}")
         
                 else:
                     await message.reply(text = f"{str(args[0])} пары в {self.days[self.system.get_day_isoweekday_now() - 1]} нет.")
@@ -142,8 +142,8 @@ class BotСollege:
 
         else:
             self.system.set_cancellation_on_lesson(mass = mass)
-            text = f"Пары отменены: <b>{', '.join(mass)}</b>."
-            await message.answer(text, parse_mode=ParseMode.HTML)
+        text = f"Пары отменены: <b>{', '.join([f"номер: {i[0]}, день: {self.days[i[1] - 1]}" for i in self.system.cancellation])}</b>."
+        await message.answer(text, parse_mode=ParseMode.HTML)
     
     async def pingme(self, message: Message):
         """
@@ -179,7 +179,8 @@ class BotСollege:
         Рассылка сообщения(какая пара будет) во все чаты, а после пингует список пингов.
 
         """
-        if self.system.get_day_isoweekday_now() <= 5:
+        print_debug("Bot", "Send message.")
+        if int(self.system.get_day_isoweekday_now()) <= 5:
             if not self.system.get_cancellation():
                 _, lesson = self.system.get_lesson_now()
                 if lesson:
@@ -187,7 +188,7 @@ class BotСollege:
                         print_debug("Bot", f"Send message to [main]{chat_id}[/main].")
                         try:
                             await self.bot.send_message(chat_id = chat_id, text = f"Следующая пара: <b>{lesson}</b>\nСсылка: {self.system.get_url_now()}.", parse_mode = ParseMode.HTML)
-                            await self.bot.send_message(chat_id = chat_id, text = f"Пинг: {" @".join(self.database.get_all_usernames())}")
+                            await self.bot.send_message(chat_id = chat_id, text = f"Пинг: @{" @".join(self.database.get_all_usernames())}")
                         
                         except Exception as e:
                             print_debug("Bot", "Error: [red]" + str(e) + "[/red]")
@@ -200,7 +201,7 @@ class BotСollege:
         Args:
             target_times (list): Время отправки сообщения.
         """
-        utc_plus_2 = ZoneInfo("Europe/Kiev")
+        utc_plus_2 = ZoneInfo(self.database.get_time_zone(_debug = False))
         while True:
             now = datetime.now(utc_plus_2)
             future_targets = []
@@ -233,6 +234,7 @@ class BotСollege:
         for i in range(1, self.database.get_max_lesson_in_days() + 1):
             times_spam.append(self.database.get_send_spam(number_lesson = i))
 
+        print_debug("Bot", "Start scheduler. Times: [main]" + str(times_spam) + "[/main].")
         asyncio.create_task(self.scheduler(times_spam))
 
     async def start(self):

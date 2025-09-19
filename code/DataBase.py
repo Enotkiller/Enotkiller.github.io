@@ -294,8 +294,7 @@ class DataBase:
             list[str]: Список id уроков.
             list[str]: Список уроков.
         """
-
-        if day is None or number_lesson is None: return
+        if day is None or number_lesson is None or self.get_max_lesson_in_days(_debug = False) < number_lesson: return None, None
 
         id_lessons = self.get_id_lesson_for_date(day, number_lesson, _debug = False) if _id_lessons is None else _id_lessons
         lessons = [self.get_lesson_for_id(id, _debug = False) for id in id_lessons]
