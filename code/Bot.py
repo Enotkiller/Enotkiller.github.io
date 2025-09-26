@@ -89,14 +89,15 @@ class BotСollege:
                 return
             
         elif args[0].lower() == "next":
-            if self.system.get_day_isoweekday_now() < 5:
+            if self.system.get_day_isoweekday_now() < 5 or self.system.get_day_isoweekday_now() == 7:
                 text = ""
+                day = self.system.get_day_isoweekday_now() + 1 if self.system.get_day_isoweekday_now() < 7 else 1
                 for i in range(1, self.database.get_max_lesson_in_days() + 1):
-                    _, lesson = self.system.get_lesson_now(_day = self.system.get_day_isoweekday_now() + 1, _number_lesson = int(i))
+                    _, lesson = self.system.get_lesson_now(_day = day, _number_lesson = int(i))
                     if lesson:
                         text = f"{text}\t{i} - {lesson}\n"
                 
-                await message.answer(text = f"{self.days[self.system.get_day_isoweekday_now()]}\n{text}")
+                await message.answer(text = f"{self.days[self.system.get_day_isoweekday_now() if day != 1 else 0]}\n{text}")
                 del text, lesson
                 return
             
@@ -222,6 +223,7 @@ class BotСollege:
             wait_seconds = (next_target - now).total_seconds()
             print_debug("Bot", f"Ожидание до [main]{next_target.strftime('%H:%M')}[/main] UTC+2 [main]({wait_seconds:.0f}[/main] секунд).")
             await asyncio.sleep(wait_seconds)
+            await asyncio.sleep(1)
             await self.send_message()
 
     async def on_startup(self):
