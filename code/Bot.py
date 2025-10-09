@@ -92,8 +92,10 @@ class BotСollege:
             if self.system.get_day_isoweekday_now() < 5 or self.system.get_day_isoweekday_now() == 7:
                 text = ""
                 day = self.system.get_day_isoweekday_now() + 1 if self.system.get_day_isoweekday_now() < 7 else 1
+                date = datetime.now(ZoneInfo(self.database.get_time_zone())) + timedelta(days = 1)
+
                 for i in range(1, self.database.get_max_lesson_in_days() + 1):
-                    _, lesson = self.system.get_lesson_now(_day = day, _number_lesson = int(i))
+                    _, lesson = self.system.get_lesson_now(_day = day, _number_lesson = int(i), _type = self.system.get_week_type(_day = date.day, _mounth = date.month, _year = date.year, _debug = False))
                     if lesson:
                         text = f"{text}\t{i} - {lesson}\n"
                 
@@ -143,6 +145,7 @@ class BotСollege:
 
         else:
             self.system.set_cancellation_on_lesson(mass = mass)
+        
         text = f"Пары отменены: <b>{', '.join([f"номер: {i[0]}, день: {self.days[i[1] - 1]}" for i in self.system.cancellation])}</b>."
         await message.answer(text, parse_mode=ParseMode.HTML)
     
