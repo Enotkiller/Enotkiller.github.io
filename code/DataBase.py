@@ -448,6 +448,7 @@ class DataBase:
         for username_value, id_value in ping.items():
             if id_value == user_id:
                 ping.remove(username_value)
+                open(os.path.join(path_project, "data/Ping.json"), "w", encoding = "utf-8").write(json.dumps(ping))
                 return False
             
         if ping.get(username):
@@ -455,7 +456,7 @@ class DataBase:
             open(os.path.join(path_project, "data/Ping.json"), "w", encoding = "utf-8").write(json.dumps(ping))
             return False
         
-        ping[username] = user_id
+        ping[username] = str(user_id)
         open(os.path.join(path_project, "data/Ping.json"), "w", encoding = "utf-8").write(json.dumps(ping))
 
         self.redis.rpush("pings_username", username)
