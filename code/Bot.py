@@ -12,7 +12,7 @@ from DataBase import DataBase
 
 
 class BotСollege:
-    def __init__(self, _token=None, _debug=True):
+    def __init__(self, _token = None, _debug = True):
         """
 
         Инициализация бота, базы данных и системы.
