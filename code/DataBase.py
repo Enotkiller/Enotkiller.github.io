@@ -560,7 +560,7 @@ class DataBase:
                 f"Add user in pings: username: [main]{username}[/main], user id: [main]{user_id}[/main]",
             )
         path_project = os.path.split(os.path.dirname(os.path.abspath(__file__)))[0]
-        ping = json.loads(
+        ping: dict = json.loads(
             open(
                 os.path.join(path_project, "data/Ping.json"), "r", encoding="utf-8"
             ).read()
@@ -575,7 +575,7 @@ class DataBase:
                 return False
 
         if ping.get(username):
-            ping.remove(username)
+            ping.pop(username)
             open(
                 os.path.join(path_project, "data/Ping.json"), "w", encoding="utf-8"
             ).write(json.dumps(ping))
