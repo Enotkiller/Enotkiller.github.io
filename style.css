@@ -1,0 +1,165 @@
+:root {
+    /* �᭮���� 梥�� */
+    --color-bg-main: #1e1e1e; /* �����-����� 䮭 */
+    --color-bg-secondary: #2c2c2c; /* ��� �����祪 �஥�⮢ */
+    --color-text-main: #f0f0f0; /* ������� ⥪�� */
+    --color-accent: #8e44ad; /* �����⮢�� ��業� */
+    --color-accent-hover: #9b59b6; /* �����⮢�� ��� ��������� */
+}
+
+/* ��騥 �⨫� */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    color: var(--color-text-main);
+}
+
+/* �⨫� Header */
+header {
+    background-color: var(--color-bg-secondary);
+    padding: 60px 0;
+    text-align: center;
+    border-bottom: 3px solid var(--color-accent);
+}
+
+header h1 {
+    font-size: 3em;
+    margin-bottom: 5px;
+}
+
+header p {
+    color: var(--color-accent);
+    font-size: 1.2em;
+}
+
+/* �⨫� ᥪ権 */
+.section {
+    padding: 80px 0;
+}
+
+.section:nth-child(even) {
+    background-color: var(--color-bg-secondary);
+}
+
+/* �⨫� ��� ࠧ���� ��� ��� */
+.skills {
+    margin-top: 20px;
+}
+
+.skill-tag {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-text-main);
+    padding: 8px 15px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.skill-tag:hover {
+    background-color: var(--color-accent-hover);
+}
+
+/* �⨫� ��� �����祪 �஥�⮢ */
+.project-card {
+    background-color: var(--color-bg-main);
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    border-left: 5px solid var(--color-accent);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.6);
+}
+
+.project-card h3 {
+    color: var(--color-accent);
+    margin-top: 0;
+}
+
+.tech-stack {
+    font-style: italic;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.project-links {
+    margin-top: 20px;
+}
+
+/* �⨫� ��� ������ */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn.primary {
+    background-color: var(--color-accent);
+    color: var(--color-text-main);
+}
+
+.btn.primary:hover {
+    background-color: var(--color-accent-hover);
+    transform: scale(1.05);
+}
+
+.btn.secondary {
+    background-color: transparent;
+    border: 2px solid var(--color-accent);
+    color: var(--color-accent);
+}
+
+.btn.secondary:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-main);
+}
+
+/* �⨫� Footer */
+footer {
+    background-color: var(--color-bg-secondary);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9em;
+    border-top: 1px solid rgba(142, 68, 173, 0.3);
+}
+
+footer a {
+    color: var(--color-accent);
+    text-decoration: none;
+}
+
+/* �������� "Fade-in" (�����, ����� �� �������� JavaScript ��� ��᫥������� �ப��⪨) */
+/* ��� ��砫� �ᯮ���㥬 ��� ������� ����� */
+.fade-in {
+    opacity: 1; 
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+/* �᫨ ������, �⮡� �஥��� ��﫨�� ������ ��� �ப��⪥, �㦥� JS */
+/* .fade-in-hidden {
+    opacity: 0;
+    transform: translateY(20px);
+} */
