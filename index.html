@@ -3,59 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Мое Портфолио | Enotkiller</title>
+    <title>Enotkiller — Python / Rust разработчик</title>
+    <meta name="description" content="Портфолио Enotkiller: Python/Rust разработчик, Telegram-боты, backend.">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    
-    <header>
+
+    <nav class="nav">
         <div class="container">
-            <h1>Enotkiller</h1>
-            <p>Python-разработчик</p>
+            <div class="nav-prompt">enotkiller<span class="accent">@</span>dev<span class="amber">:~$</span></div>
+            <div class="nav-links">
+                <a href="#about">about</a>
+                <a href="#projects">projects</a>
+                <a href="https://github.com/Enotkiller" target="_blank" rel="noreferrer">github</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="container">
+            <div class="terminal">
+                <div class="terminal-bar">
+                    <span class="terminal-dot red"></span>
+                    <span class="terminal-dot yellow"></span>
+                    <span class="terminal-dot green"></span>
+                    <span class="terminal-title">enotkiller@dev: ~</span>
+                </div>
+                <div class="terminal-body">
+                    <p class="term-line"><span class="prompt">$</span> whoami</p>
+                    <p class="term-output"><span id="typedOutput"></span></p>
+                    <p class="term-sub">Python (aiogram, asyncio) · изучаю Rust · Redis · Docker · Telegram-боты</p>
+                    <p class="term-line" style="margin-bottom:0;"><span class="prompt">$</span> <span class="cursor"></span></p>
+                </div>
+            </div>
+            <div class="hero-links">
+                <a href="https://t.me/en0tpalaskyn" target="_blank" class="btn primary">Написать в Telegram</a>
+                <a href="https://github.com/Enotkiller" target="_blank" class="btn secondary">Открыть GitHub</a>
+            </div>
         </div>
     </header>
 
     <section id="about" class="section">
         <div class="container">
+            <p class="section-eyebrow">cat about.md</p>
             <h2>Обо мне</h2>
-            <p>Привет! Я Enotkiller, и мне нравится создавать полезные вещи с помощью кода. Мой основной инструмент — Python.</p>
-            <div class="skills">
+            <p class="about-text fade-in">Привет! Я Enotkiller, и мне нравится создавать полезные вещи с помощью кода. Мой основной инструмент — Python, сейчас также изучаю Rust и постепенно переношу на него части своих проектов ради производительности.</p>
+            <div class="skills fade-in">
                 <span class="skill-tag">Python</span>
                 <span class="skill-tag">Rust</span>
                 <span class="skill-tag">Aiogram</span>
                 <span class="skill-tag">Redis</span>
-                <span class="skill-tag">Postgresql</span>
-                <span class="skill-tag">Sqlite3</span>
-                <span class="skill-tag">Git</span>
+                <span class="skill-tag">PostgreSQL</span>
+                <span class="skill-tag">SQLite3</span>
                 <span class="skill-tag">Docker</span>
+                <span class="skill-tag">Git</span>
             </div>
         </div>
     </section>
 
     <section id="projects" class="section">
         <div class="container">
-            <h2>Мои Проекты</h2>
-            
-            <div class="project-card fade-in">
-                <h3>🚀 telegram-bot-for-college</h3>
-                <p class="tech-stack"><b>Стек:</b> Python, Redis, Docker</p>
-                <p>Telegram-бот для автоматической рассылки расписания пар студентам колледжа. Использует Redis для кэширования данных и Docker для контейнеризации.</p>                
-                <div class="project-links">
-                    <a href="https://t.me/raspisaniepari_bot" target="_blank" class="btn primary">Попробовать бота</a>
-                    <a href="https://github.com/Enotkiller/telegram-bot-for-college" target="_blank" class="btn secondary">Код на GitHub</a>
+            <p class="section-eyebrow">ls ~/projects</p>
+            <h2>Мои проекты</h2>
+
+            <div class="projects-grid">
+
+                <!--
+                    ШАБЛОН: чтобы добавить новый проект, скопируй блок
+                    <div class="project-card fade-in"> ... </div> целиком
+                    (вместе с внутренним .terminal-bar) и вставь перед
+                    закрывающим </div> сетки. Ничего больше менять не нужно.
+
+                    <div class="project-card fade-in">
+                        <div class="terminal-bar">
+                            <span class="terminal-dot red"></span>
+                            <span class="terminal-dot yellow"></span>
+                            <span class="terminal-dot green"></span>
+                            <span class="terminal-title">repo-name</span>
+                        </div>
+                        <div class="project-card-body">
+                            <h3>🔧 Название проекта</h3>
+                            <p class="tech-stack">Python · ...</p>
+                            <p>Краткое описание того, что делает проект.</p>
+                            <div class="project-links">
+                                <a href="#" target="_blank" class="btn primary">Демо / Попробовать</a>
+                                <a href="#" target="_blank" class="btn secondary">Код на GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                -->
+
+                <div class="project-card fade-in">
+                    <div class="terminal-bar">
+                        <span class="terminal-dot red"></span>
+                        <span class="terminal-dot yellow"></span>
+                        <span class="terminal-dot green"></span>
+                        <span class="terminal-title">telegram-bot-for-college</span>
+                    </div>
+                    <div class="project-card-body">
+                        <h3>🚀 telegram-bot-for-college</h3>
+                        <p class="tech-stack">Python · Aiogram · Redis · Docker Compose</p>
+                        <p>Telegram-бот для колледжа: сам определяет текущий тип недели (числитель/знаменатель) и присылает расписание перед парой. Отвечает на <code>/para</code> (что сейчас за пара), показывает все пары на день командами <code>all</code>/<code>next</code>, отменяет отдельные пары на сегодня через <code>/cancel</code> и пингует подписавшихся перед началом занятия (<code>/pingme</code>, <code>/pingwho</code>). Состояние — в Redis, деплой — через docker-compose.</p>
+                        <div class="project-links">
+                            <a href="https://t.me/raspisaniepari_bot" target="_blank" class="btn primary">Попробовать бота</a>
+                            <a href="https://github.com/Enotkiller/telegram-bot-for-college" target="_blank" class="btn secondary">Код на GitHub</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
             </div>
+        </div>
     </section>
 
     <footer>
         <div class="container">
-            <p>Связь со мной: <a href="https://t.me/en0tpalaskyn">@en0tpalaskyn</a></p>
-            <p>&copy; 2025 Enotkiller</p>
+            <p class="footer-prompt">$ curl contacts --enotkiller</p>
+            <p>
+                <a href="mailto:enot0off05@gmail.com">enot0off05@gmail.com</a>
+                &nbsp;·&nbsp;
+                <a href="https://t.me/en0tpalaskyn" target="_blank">@en0tpalaskyn</a>
+                &nbsp;·&nbsp;
+                <a href="https://github.com/Enotkiller" target="_blank">GitHub</a>
+            </p>
         </div>
     </footer>
-    
+
+    <script>
+        // Печатающийся заголовок в терминале
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const fullText = "Enotkiller — Junior Python / Rust Developer";
+        const target = document.getElementById('typedOutput');
+
+        if (reduceMotion) {
+            target.textContent = fullText;
+        } else {
+            let i = 0;
+            (function typeChar() {
+                if (i <= fullText.length) {
+                    target.textContent = fullText.slice(0, i);
+                    i++;
+                    setTimeout(typeChar, 32);
+                }
+            })();
+        }
+
+        // Появление блоков при прокрутке
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
 </body>
 </html>
